@@ -1,11 +1,11 @@
-/*
- * Upstream Altera code dump only included the generated C code
- * and not the source yacc, so we're stuck with this file for now.
- */
+// SPDX-FileCopyrightText: 1997 Altera Corporation
+// SPDX-FileCopyrightText: 2022 Peter Poeschl <pp+ujt2208@nest-ai.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-/* # line 15 "jamexp.y" */
-
+%code top {
 #include <stdint.h>
+#include <stdio.h>
 #include <math.h>
 #include "jamexprt.h"
 #include "jamdefs.h"
@@ -15,11 +15,9 @@
 #include "jamarray.h"
 #include "jamutil.h"
 #include "jamytab.h"
-#ifdef URJ_JAM_YYDEBUG
-#include <stdio.h>
-#endif // URJ_JAM_YYDEBUG
-
+}
 
+%code {
 /* ------------- LEXER DEFINITIONS -----------------------------------------*/
 /****************************************************************************/
 /*                                                                          */
@@ -100,6 +98,9 @@
 
 #define END_MACHINE     accept: urj_jam_token = ret; \
                         }
+// need defines, single-chars cannot be %token
+#define GREATER_TOK '>'
+#define LESS_TOK    '<'
 
 struct
 {
@@ -146,6 +147,9 @@ JAMS_SYMBOL_RECORD *urj_jam_array_symbol_rec = NULL;
                         /* If there are more, error reporting   */
                         /* will be incomplete.                  */
 
+}
+
+%code requires {
 enum OPERATOR_TYPE
 {
     ADD = 0,
@@ -194,8 +198,10 @@ typedef struct EXP_STACK
     int32_t roper;              /* we save it for CEIL/FLOOR's use */
 } EXPN_STACK;
 
-#define YYSTYPE EXPN_STACK      /* must be a #define for yacc */
+#define URJ_JAM_YYSTYPE EXPN_STACK      /* must be a #define for yacc */
+}
 
+%code {
 YYSTYPE urj_jam_null_expression = { 0, 0, 0, 0, 0 };
 
 JAM_RETURN_TYPE urj_jam_return_code = JAMC_SUCCESS;
@@ -205,12 +211,17 @@ JAME_EXPRESSION_TYPE urj_jam_expr_type = JAM_ILLEGAL_EXPR_TYPE;
 #define NULL_EXP urj_jam_null_expression    /* .. for 1 operand operators */
 
 #define CALC(operator, lval, rval) urj_jam_exp_eval((operator), (lval), (rval))
+}
 
+%code provides {
 /* --- FUNCTION PROTOTYPES -------------------------------------------- */
 
 int urj_jam_yyparse (void);
 int urj_jam_yylex (void);
+}
 
+%code {
+#ifdef DELME_OLD_TOKEN_VALUES
 #define AND_TOK 257
 #define OR_TOK 258
 #define EQUALITY_TOK 259
@@ -234,15 +245,9 @@ int urj_jam_yylex (void);
 #define ERROR_TOK 277
 #define UNARY_MINUS 278
 #define UNARY_PLUS 279
-#ifndef YYSTYPE
-#define YYSTYPE int
-#endif
+#endif // DELME_OLD_TOKEN_VALUES
+
 YYSTYPE urj_jam_yylval, urj_jam_yyval;
-#define YYERRCODE 256
-
-/* # line 333 "jamexp.y" */
-
-
 int32_t urj_jam_convert_bool_to_int (int32_t *data, int32_t msb, int32_t lsb);
 EXPN_STACK urj_jam_exp_eval (OPERATOR_TYPE otype, EXPN_STACK op1, EXPN_STACK op2);
 void urj_jam_exp_lexer (void);
@@ -262,7 +267,43 @@ int urj_jam_yyparse (void);
 #define GET_NEXT_CH jam_get_next_ch()
 #define UNGET_CH jam_unget_ch()
 #define CH jam_get_ch()
+}
 
+// Bison declarations
+%language "C"
+//always in current dir: %header "jamytab.h"
+//fixed jamexp.h parallel to jamexp.c: %header
+// ==> use --defines=$PATH_TO/jamytab.h
+%define api.prefix {urj_jam_yy}
+%define api.value.type {EXPN_STACK}
+%start stapl_expr
+
+%token AND_TOK         "&&"  // alias "AND"
+%token OR_TOK          "||"  // alias "OR"
+%token EQUALITY_TOK    "=="
+%token INEQUALITY_TOK  "!="
+// single-char cannot be %token
+//%token GREATER_TOK   '>'
+//%token LESS_TOK      '<'
+%token GREATER_EQ_TOK  ">="
+%token LESS_OR_EQ_TOK  "<="
+%token LEFT_SHIFT_TOK  "<<"
+%token RIGHT_SHIFT_TOK ">>"
+%token DOT_DOT_TOK     ".."
+%token ABS_TOK         "ABS"
+%token INT_TOK         "INT"
+%token LOG2_TOK        "LOG2"
+%token SQRT_TOK        "SQRT"
+%token CIEL_TOK        "CEIL"
+%token FLOOR_TOK       "FLOOR"
+%token VALUE_TOK       "VALUE"
+%token IDENTIFIER_TOK  "IDENTIFIER"
+%token ARRAY_TOK       "ARRAY"
+%token ERROR_TOK       "ERROR"
+%token UNARY_MINUS     "UNARY_MINUS"
+%token UNARY_PLUS      "UNARY_PLUS"
+
+%code {
 static inline void jam_get_next_ch(void)
 {
     urj_jam_ch = urj_jam_parse_string[urj_jam_strptr++];
@@ -1346,562 +1387,170 @@ JAM_RETURN_TYPE urj_jam_evaluate_expression
 
     return urj_jam_return_code;
 }
-
-static const int jam_yyexca[] = {
-    -1, 1,
-    0, -1,
-    -2, 0,
-    0,
-};
-
-#define YYNPROD 37
-#define YYLAST 626
-
-static const int jam_yyact[] = {
-    7, 67, 68, 79, 45, 76, 66, 4,
-    20, 7, 5, 1, 6, 18, 44, 43,
-    4, 20, 19, 5, 0, 6, 18, 16,
-    42, 17, 41, 19, 40, 39, 0, 0,
-    0, 20, 21, 0, 0, 0, 18, 16,
-    0, 17, 0, 19, 20, 21, 0, 0,
-    0, 18, 16, 0, 17, 0, 19, 0,
-    20, 21, 0, 0, 86, 18, 16, 0,
-    17, 0, 19, 20, 21, 0, 0, 83,
-    18, 16, 0, 17, 0, 19, 20, 21,
-    0, 0, 82, 18, 16, 0, 17, 0,
-    19, 0, 23, 0, 0, 8, 0, 0,
-    0, 0, 20, 0, 89, 23, 8, 18,
-    16, 0, 17, 0, 19, 0, 0, 0,
-    84, 23, 0, 0, 0, 20, 21, 0,
-    22, 81, 18, 16, 23, 17, 0, 19,
-    20, 21, 0, 22, 80, 18, 16, 23,
-    17, 0, 19, 0, 20, 21, 0, 22,
-    75, 18, 16, 0, 17, 0, 19, 0,
-    0, 0, 22, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 22, 0, 0,
-    0, 0, 0, 0, 0, 0, 23, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 23, 0, 0, 0, 0, 20, 21,
-    0, 0, 0, 18, 16, 23, 17, 0,
-    19, 0, 0, 0, 22, 0, 0, 0,
-    20, 0, 0, 0, 0, 18, 16, 22,
-    17, 0, 19, 0, 20, 0, 0, 0,
-    0, 18, 16, 22, 17, 0, 19, 0,
-    0, 0, 0, 9, 10, 11, 12, 13,
-    14, 3, 69, 15, 9, 10, 11, 12,
-    13, 14, 3, 0, 15, 24, 25, 28,
-    29, 30, 31, 32, 33, 26, 27, 87,
-    24, 25, 28, 29, 30, 31, 32, 33,
-    26, 27, 0, 0, 24, 25, 28, 29,
-    30, 31, 32, 33, 26, 27, 0, 24,
-    25, 28, 29, 30, 31, 32, 33, 26,
-    27, 0, 24, 25, 28, 29, 30, 31,
-    32, 33, 26, 27, 0, 0, 0, 0,
-    0, 20, 21, 0, 0, 64, 18, 16,
-    0, 17, 0, 19, 20, 21, 26, 27,
-    0, 18, 16, 0, 17, 0, 19, 0,
-    0, 24, 25, 28, 29, 30, 31, 32,
-    33, 26, 27, 0, 24, 25, 28, 29,
-    30, 31, 32, 33, 26, 27, 0, 0,
-    24, 25, 28, 29, 30, 31, 32, 33,
-    26, 27, 23, 0, 20, 21, 0, 0,
-    0, 18, 16, 0, 17, 23, 19, 20,
-    21, 0, 0, 0, 18, 16, 0, 17,
-    0, 19, 0, 0, 20, 21, 0, 0,
-    22, 18, 16, 0, 17, 0, 19, 0,
-    0, 0, 0, 22, 28, 29, 30, 31,
-    32, 33, 26, 27, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 23, 28, 29,
-    30, 31, 32, 33, 26, 27, 0, 0,
-    23, 0, 0, 0, 30, 31, 32, 33,
-    26, 27, 0, 0, 0, 23, 0, 0,
-    0, 0, 0, 22, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 22, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 2, 0,
-    0, 0, 0, 34, 35, 36, 37, 38,
-    0, 0, 0, 0, 0, 0, 0, 46,
-    47, 48, 49, 50, 51, 52, 53, 54,
-    55, 56, 57, 58, 59, 60, 61, 62,
-    63, 0, 0, 0, 0, 0, 65, 0,
-    70, 71, 72, 73, 74, 24, 25, 28,
-    29, 30, 31, 32, 33, 26, 27, 0,
-    24, 25, 28, 29, 30, 31, 32, 33,
-    26, 27, 77, 78, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 85, 0,
-    0, 0, 0, 0, 0, 0, 88, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    24, 0, 28, 29, 30, 31, 32, 33,
-    26, 27, 0, 0, 0, 28, 29, 30,
-    31, 32, 33, 26, 27, 0, 0, 0,
-    0, 0, 28, 29, 30, 31, 32, 33,
-    26, 27,
-};
-
-static const int jam_yypact[] = {
-    -24, -1000, 287, -1000, -24, -24, -24, -24,
-    -24, -11, -12, -14, -16, -25, -26, -87,
-    -24, -24, -24, -24, -24, -24, -24, -24,
-    -24, -24, -24, -24, -24, -24, -24, -24,
-    -24, -24, 276, -1000, -1000, -1000, -1000, -24,
-    -34, -24, -24, -24, -24, -24, -29, -29,
-    -1000, -1000, -1000, 171, 359, 153, 346, 335,
-    -20, -20, 183, 183, 61, 61, 61, 61,
-    -1000, 103, -36, -24, -24, -88, 91, 80,
-    41, 30, 19, -1000, -1000, 287, 287, -33,
-    -1000, -1000, -1000, -1000, -1000, -4, -1000, -24,
-    7, -1000,
-};
-
-static const int jam_yypgo[] = {
-    0, 11, 486, 6,
-};
-
-static const int jam_yyr1[] = {
-    0, 1, 3, 3, 3, 3, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2,
-};
-
-static const int jam_yyr2[] = {
-    0, 1, 2, 2, 6, 3, 1, 3,
-    2, 2, 2, 2, 3, 3, 3, 3,
-    3, 3, 3, 3, 3, 3, 3, 3,
-    3, 3, 3, 3, 3, 3, 4, 4,
-    4, 4, 4, 4, 4,
-};
-
-static const int jam_yychk[] = {
-    -1000, -1, -2, 274, 40, 43, 45, 33,
-    126, 268, 269, 270, 271, 272, 273, 276,
-    43, 45, 42, 47, 37, 38, 124, 94,
-    257, 258, 265, 266, 259, 260, 261, 262,
-    263, 264, -2, -2, -2, -2, -2, 40,
-    40, 40, 40, 40, 40, 91, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2,
-    -2, -2, -2, -2, -2, -2, -2, -2,
-    41, -2, -3, 35, 36, 276, -2, -2,
-    -2, -2, -2, 41, 41, -2, -2, 91,
-    41, 41, 41, 41, 93, -2, 93, 267,
-    -2, 93,
-};
-
-static const int jam_yydef[] = {
-    0, -2, 1, 6, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 8, 9, 10, 11, 0,
-    0, 0, 0, 0, 0, 0, 12, 13,
-    14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29,
-    7, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 30, 31, 2, 3, 0,
-    32, 33, 34, 35, 36, 0, 5, 0,
-    0, 4,
-};
-
-/****************************************************************************/
-/*                                                                          */
-/*  Module:         jamycskl.c                                              */
-/*                                                                          */
-/*                  Copyright (C) Altera Corporation 1997                   */
-/*                                                                          */
-/*  Description:    LALR parser driver skeleton file -- used by YACC        */
-/*                                                                          */
-/****************************************************************************/
-
-
-#ifndef INITIALIZE
-#define INITIALIZE
-#endif
-
-#ifndef YYMAXDEPTH
-#define YYMAXDEPTH 200          /* default stack depth */
-#endif
-
-#ifndef jam_yyerrok
-#define jam_yyerrok ((int) 0)
-#endif
-
-#define YYFLAG -1000
-#define YYERROR goto jam_yyerrlab
-#define YYACCEPT return(0)
-#define YYABORT return(1)
-
-static YYSTYPE jam_yyv[YYMAXDEPTH];
-static int token = -1;                 /* input token */
-static int errct = 0;                  /* error count */
-static int errfl = 0;                  /* error flag */
-
-int
-urj_jam_yyparse (void)
-{
-    int jam_yys[YYMAXDEPTH];
-    int jam_yyj, jam_yym;
-    YYSTYPE *jam_yypvt;
-    int jam_yystate, *jam_yyps, jam_yyn;
-
-    const int *jam_yyxi;
-
-    YYSTYPE *jam_yypv;
-
-    jam_yystate = 0;
-    token = -1;
-    errct = 0;
-    errfl = 0;
-    jam_yyps = &jam_yys[-1];
-    jam_yypv = &jam_yyv[-1];
-
-
-  jam_yystack:                 /* put a state and value onto the stack */
-
-    if (++jam_yyps > &jam_yys[YYMAXDEPTH])
-    {
-        urj_jam_yyerror ("yacc stack overflow");
-        return 1;
-    }
-    *jam_yyps = jam_yystate;
-    ++jam_yypv;
-    *jam_yypv = urj_jam_yyval;
-
-  jam_yynewstate:
-
-    jam_yyn = jam_yypact[jam_yystate];
-
-    if (jam_yyn <= YYFLAG)
-        goto jam_yydefault;     /* simple state */
-
-    if (token < 0)
-        if ((token = urj_jam_yylex ()) < 0)
-            token = 0;
-    if ((jam_yyn += token) < 0 || jam_yyn >= YYLAST)
-        goto jam_yydefault;
-
-    if (jam_yychk[jam_yyn = jam_yyact[jam_yyn]] == token)
-    {                           /* valid shift */
-#ifdef URJ_JAM_YYDEBUG
-        if (token <= 0xff)
-        {
-            printf("# .. shift '%c' -> state %d\n", token, jam_yyn);
-        }
-        else
-        {
-            // symbols are NOT jam_keyword_table[*].token!
-            printf("# .. shift %d -> state %d\n", token, jam_yyn);
-        }
-#endif // URJ_JAM_YYDEBUG
-        token = -1;
-        urj_jam_yyval = urj_jam_yylval;
-        jam_yystate = jam_yyn;
-        if (errfl > 0)
-            --errfl;
-        goto jam_yystack;
-    }
-
-  jam_yydefault:
-
-    if ((jam_yyn = jam_yydef[jam_yystate]) == -2)
-    {
-        if (token < 0)
-            if ((token = urj_jam_yylex ()) < 0)
-                token = 0;
-        /* look through exception table */
-
-        for (jam_yyxi = jam_yyexca; (*jam_yyxi != (-1)) || (jam_yyxi[1] != jam_yystate); jam_yyxi += 2);        /* VOID */
-
-        while (*(jam_yyxi += 2) >= 0)
-        {
-            if (*jam_yyxi == token)
-                break;
-        }
-        if ((jam_yyn = jam_yyxi[1]) < 0)
-            return 0;         /* accept */
-    }
-
-    if (jam_yyn == 0)
-    {                           /* error */
-
-        switch (errfl)
-        {
-        case 0:                /* brand new error */
-            urj_jam_yyerror ("syntax error");
-            /* jam_yyerrlab: */
-            ++errct;
-
-        case 1:
-        case 2:                /* incompletely recovered error ... try again */
-            errfl = 3;
-
-            /* find a state where "error" is a legal shift action */
-
-            while (jam_yyps >= jam_yys)
-            {
-                jam_yyn = jam_yypact[*jam_yyps] + YYERRCODE;
-                if (jam_yyn >= 0 && jam_yyn < YYLAST
-                    && jam_yychk[jam_yyact[jam_yyn]] == YYERRCODE)
-                {
-                    jam_yystate = jam_yyact[jam_yyn];   /* simulate a shift of "error" */
-                    goto jam_yystack;
-                }
-                jam_yyn = jam_yypact[*jam_yyps];
-                /* the current jam_yyps has no shift onn "error", pop stack */
-                --jam_yyps;
-                --jam_yypv;
-            }
-
-            /* there is no state on the stack with an error shift ... abort */
-
-          jam_yyabort:
-            return 1;
-        case 3:                /* no shift yet; clobber input char */
-
-            if (token == 0)
-                goto jam_yyabort;       /* don't discard EOF, quit */
-            token = -1;
-            goto jam_yynewstate;        /* try again in the same state */
-        }
-
-    }
-
-    /* reduction by production jam_yyn */
-
-    jam_yyps -= jam_yyr2[jam_yyn];
-    jam_yypvt = jam_yypv;
-    jam_yypv -= jam_yyr2[jam_yyn];
-    urj_jam_yyval = jam_yypv[1];
-    jam_yym = jam_yyn;
-    /* consult goto table to find next state */
-    jam_yyn = jam_yyr1[jam_yyn];
-    jam_yyj = jam_yypgo[jam_yyn] + *jam_yyps + 1;
-    if (jam_yyj >= YYLAST
-        || jam_yychk[jam_yystate = jam_yyact[jam_yyj]] != -jam_yyn)
-        jam_yystate = jam_yyact[jam_yypgo[jam_yyn]];
-#ifdef URJ_JAM_YYDEBUG
-    printf("# .. reduce P%d:", jam_yym);
-    for (int ri = -jam_yyr2[jam_yym] + 1; ri <= 0; ++ ri)
-    {
-        printf(" (t=%d v=%d)", jam_yypvt[ri].type, jam_yypvt[ri].val);
-    }
-    printf(" -> sym %d, state %d\n", jam_yyn, jam_yystate);
-#endif // URJ_JAM_YYDEBUG
-    switch (jam_yym)
-    {
-
-    case 1:
-/* # line 288 "jamexp.y" */
-        {
-            urj_jam_parse_value = jam_yypvt[-0].val;
-            urj_jam_expr_type = jam_yypvt[-0].type;
-        }
-        break;
-    case 2:
-/* # line 292 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (POUND, jam_yypvt[-0], NULL_EXP);
-        }
-        break;
-    case 3:
-/* # line 293 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (DOLLAR, jam_yypvt[-0], NULL_EXP);
-        }
-        break;
-    case 4:
-/* # line 295 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (ARRAY_RANGE, jam_yypvt[-3], jam_yypvt[-1]);
-        }
-        break;
-    case 5:
-/* # line 296 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (ARRAY_ALL, jam_yypvt[-2], NULL_EXP);
-        }
-        break;
-    case 7:
-/* # line 301 "jamexp.y" */
-        {
-            urj_jam_yyval = jam_yypvt[-1];
-        }
-        break;
-    case 8:
-/* # line 302 "jamexp.y" */
-        {
-            urj_jam_yyval = jam_yypvt[-0];
-        }
-        break;
-    case 9:
-/* # line 303 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (UMINUS, jam_yypvt[-0], NULL_EXP);
-        }
-        break;
-    case 10:
-/* # line 304 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (NOT, jam_yypvt[-0], NULL_EXP);
-        }
-        break;
-    case 11:
-/* # line 305 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (BITWISE_NOT, jam_yypvt[-0], NULL_EXP);
-        }
-        break;
-    case 12:
-/* # line 306 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (ADD, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 13:
-/* # line 307 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (SUB, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 14:
-/* # line 308 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (MULT, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 15:
-/* # line 309 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (DIV, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 16:
-/* # line 310 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (MOD, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 17:
-/* # line 311 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (BITWISE_AND, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 18:
-/* # line 312 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (BITWISE_OR, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 19:
-/* # line 313 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (BITWISE_XOR, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 20:
-/* # line 314 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (AND, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 21:
-/* # line 315 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (OR, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 22:
-/* # line 316 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (LEFT_SHIFT, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 23:
-/* # line 317 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (RIGHT_SHIFT, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 24:
-/* # line 318 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (EQUALITY, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 25:
-/* # line 319 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (INEQUALITY, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 26:
-/* # line 320 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (GREATER_THAN, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 27:
-/* # line 321 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (LESS_THAN, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 28:
-/* # line 322 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (GREATER_OR_EQUAL, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 29:
-/* # line 323 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (LESS_OR_EQUAL, jam_yypvt[-2], jam_yypvt[-0]);
-        }
-        break;
-    case 30:
-/* # line 324 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (ABS, jam_yypvt[-1], NULL_EXP);
-        }
-        break;
-    case 31:
-/* # line 325 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (INT, jam_yypvt[-1], NULL_EXP);
-        }
-        break;
-    case 32:
-/* # line 326 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (LOG2, jam_yypvt[-1], NULL_EXP);
-        }
-        break;
-    case 33:
-/* # line 327 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (SQRT, jam_yypvt[-1], NULL_EXP);
-        }
-        break;
-    case 34:
-/* # line 328 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (CIEL, jam_yypvt[-1], NULL_EXP);
-        }
-        break;
-    case 35:
-/* # line 329 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (FLOOR, jam_yypvt[-1], NULL_EXP);
-        }
-        break;
-    case 36:
-/* # line 330 "jamexp.y" */
-        {
-            urj_jam_yyval = CALC (ARRAY, jam_yypvt[-3], jam_yypvt[-1]);
-        }
-        break;
-    }
-    goto jam_yystack;           /* stack new state and value */
 }
+
+%% // Grammar rules
+
+// grammar start symbol
+stapl_expr: /*P1*/ logical_or_expr {
+   urj_jam_parse_value = $1.val;
+   urj_jam_expr_type = $1.type;
+}
+;
+pound_expr: /*P2*/ '#' "VALUE"[right] {
+   $$ = CALC (POUND, $right, NULL_EXP);
+}
+;
+dollar_expr: /*P3*/ '$' "VALUE"[right] {
+   $$ = CALC (DOLLAR, $right, NULL_EXP);
+}
+| '$' array_expr[right] {
+   $$ = CALC (DOLLAR, $right, NULL_EXP);
+}
+;
+array_range: /*P4*/ "ARRAY" '[' logical_or_expr[left] ".." logical_or_expr[right] ']' {
+   // ??: ARRAY seems to have been cached somewhere
+   $$ = CALC (ARRAY_RANGE, $left, $right);
+}
+;
+array_all: /*P5*/ "ARRAY"[left] '[' ']' {
+   $$ = CALC (ARRAY_ALL, $left, NULL_EXP);
+}
+;
+primary_expr: /*P6*/ "VALUE"
+| /*P7*/ '(' logical_or_expr[mid] ')' {
+   $$ = $mid;
+}
+| array_expr
+| abs_expr
+| ceil_expr
+| floor_expr
+| int_expr
+| log2_expr
+| sqrt_expr
+;
+unary_expr: primary_expr
+| /*P8*/ '+' unary_expr[right] {
+   $$ = $right;
+}
+| /*P9*/ '-' unary_expr[right] {
+   $$ = CALC (UMINUS, $right, NULL_EXP);
+}
+| /*P10*/ '!' unary_expr[right] {
+   $$ = CALC (NOT, $right, NULL_EXP);
+}
+| /*P11*/ '~' unary_expr[right] {
+   $$ = CALC (BITWISE_NOT, $right, NULL_EXP);
+}
+;
+additive_expr: multiplicative_expr
+| /*P12*/ additive_expr[left] '+' multiplicative_expr[right] {
+   $$ = CALC (ADD, $left, $right);
+}
+| /*P13*/ additive_expr[left] '-' multiplicative_expr[right] {
+   $$ = CALC (SUB, $left, $right);
+}
+;
+multiplicative_expr: unary_expr
+| /*P14*/ multiplicative_expr[left] '*' unary_expr[right] {
+   $$ = CALC (MULT, $left, $right);
+}
+| /*P15*/ multiplicative_expr[left] '/' unary_expr[right] {
+   $$ = CALC (DIV, $left, $right);
+}
+| /*P16*/ multiplicative_expr[left] '%' unary_expr[right] {
+   $$ = CALC (MOD, $left, $right);
+}
+;
+bitand_expr: equality_expr
+| /*P17*/ bitand_expr[left] '&' equality_expr[right] {
+   $$ = CALC (BITWISE_AND, $left, $right);
+}
+;
+bitor_expr: bitxor_expr
+| /*P18*/ bitor_expr[left] '|' bitxor_expr[right] {
+   $$ = CALC (BITWISE_OR, $left, $right);
+}
+;
+bitxor_expr: bitand_expr
+| /*P19*/ bitxor_expr[left] '^' bitand_expr[right] {
+   $$ = CALC (BITWISE_XOR, $left, $right);
+}
+;
+logical_and_expr: bitor_expr
+| /*P20*/ logical_and_expr[left] "&&" bitor_expr[right] {
+   $$ = CALC (AND, $left, $right);
+}
+;
+logical_or_expr: logical_and_expr
+| /*P21*/ logical_or_expr[left] "||" logical_and_expr[right] {
+   $$ = CALC (OR, $left, $right);
+}
+;
+shift_expr: additive_expr
+| /*P22*/ shift_expr[left] "<<" additive_expr[right] {
+   $$ = CALC (LEFT_SHIFT, $left, $right);
+}
+| /*P23*/ shift_expr[left] ">>" additive_expr[right] {
+   $$ = CALC (RIGHT_SHIFT, $left, $right);
+}
+;
+equality_expr: relational_expr
+| /*P24*/ equality_expr[left] "==" relational_expr[right] {
+   $$ = CALC (EQUALITY, $left, $right);
+}
+| /*P25*/ equality_expr[left] "!=" relational_expr[right] {
+   $$ = CALC (INEQUALITY, $left, $right);
+}
+;
+relational_expr: shift_expr
+| /*P26*/ relational_expr[left] '>' shift_expr[right] {
+   $$ = CALC (GREATER_THAN, $left, $right);
+}
+| /*P27*/ relational_expr[left] '<' shift_expr[right] {
+   $$ = CALC (LESS_THAN, $left, $right);
+}
+| /*28*/ relational_expr[left] ">=" shift_expr[right] {
+   $$ = CALC (GREATER_OR_EQUAL, $left, $right);
+}
+| /*P29*/ relational_expr[left] "<=" shift_expr[right] {
+   $$ = CALC (LESS_OR_EQUAL, $left, $right);
+}
+;
+abs_expr: /*P30*/ "ABS" '(' logical_or_expr[mid] ')' {
+   $$ = CALC (ABS, $mid, NULL_EXP);
+}
+;
+int_expr: /*P31*/ "INT" '(' pound_expr[mid] ')' {
+   $$ = CALC (INT, $mid, NULL_EXP);
+}
+| "INT" '(' dollar_expr[mid] ')' {
+   $$ = CALC (INT, $mid, NULL_EXP);
+}
+| "INT" '(' array_range[mid] ')' {
+   $$ = CALC (INT, $mid, NULL_EXP);
+}
+| "INT" '(' array_all[mid] ')' {
+   $$ = CALC (INT, $mid, NULL_EXP);
+}
+;
+log2_expr: /*P32*/ "LOG2" '(' logical_or_expr[mid] ')' {
+   $$ = CALC (LOG2, $mid, NULL_EXP);
+}
+;
+sqrt_expr: /*P33*/ "SQRT" '(' logical_or_expr[mid] ')' {
+   $$ = CALC (SQRT, $mid, NULL_EXP);
+}
+;
+ceil_expr: /*P34*/ "CEIL" '(' logical_or_expr[mid] ')' {
+   $$ = CALC (CIEL, $mid, NULL_EXP);
+}
+;
+floor_expr: /*P35*/ "FLOOR" '(' logical_or_expr[mid] ')' {
+   $$ = CALC (FLOOR, $mid, NULL_EXP);
+}
+;
+array_expr: /*P36*/ "ARRAY"[left] '[' logical_or_expr[right] ']' {
+   $$ = CALC (ARRAY, $left, $right);
+}
+;
