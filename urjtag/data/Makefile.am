@@ -120,6 +120,8 @@ nobase_dist_pkgdata_DATA = \
 	freescale/PARTS \
 	freescale/mpc5200/STEPPINGS \
 	freescale/mpc5200/mpc5200 \
+	freescale/mpc8272/STEPPINGS \
+	freescale/mpc8272/mpc8272_revA \
 	freescale/mpc8377/STEPPINGS \
 	freescale/mpc8377/mpc8377 \
 	freescale/mpc8378/STEPPINGS \
@@ -187,6 +189,8 @@ nobase_dist_pkgdata_DATA = \
 	sigma/smp8634/STEPPINGS \
 	sigma/smp8634/smp8634 \
 	ti/PARTS \
+	ti/tms320vc5510/STEPPINGS \
+	ti/tms320vc5510/tms320vc5510 \
 	ti/tnetv1060/STEPPINGS \
 	ti/tnetv1060/tnetv1060 \
 	ti/tnetv1061/STEPPINGS \
