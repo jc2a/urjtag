@@ -403,17 +403,17 @@ static void
 jlink_debug_buffer (unsigned char *buffer, int length)
 {
     char line[81];
-    char s[4];
+    char s[12];
     int i;
     int j;
 
     for (i = 0; i < length; i += BYTES_PER_LINE)
     {
-        snprintf (line, 5, "%04x", i);
+        snprintf (line, sizeof(s), "%04x", i);
         for (j = i; j < i + BYTES_PER_LINE && j < length; j++)
         {
-            snprintf (s, 4, " %02x", buffer[j]);
-            strcat (line, s);
+            snprintf (s, sizeof(s), " %02x", buffer[j]);
+            strncat (line, s, sizeof(line) - 1);
         }
         urj_log (URJ_LOG_LEVEL_DETAIL, "%s\n", line);
     }

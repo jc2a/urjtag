@@ -464,15 +464,8 @@ static char *
 new_string (urj_bsdl_scan_extra_t *extra, const char *str)
 {
     char *n_str;
-    size_t n_str_size;
 
-    n_str_size = strlen (str) + 1;
-    if ((n_str = malloc (n_str_size)))
-    {
-        strncpy (n_str, str, n_str_size - 1);
-        n_str[n_str_size - 1] = '\0';   /* set very last element to EOS */
-    }
-    else
+    if (! (n_str = strdup (str)))
         urj_bsdl_ftl_set (extra->proc_mode, URJ_ERROR_OUT_OF_MEMORY,
                           "No memory");
 

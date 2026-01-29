@@ -43,7 +43,7 @@ cmd_shell_run (urj_chain_t *chain, char *params[])
     size_t len;
     char *shell_cmd;
 
-    if ((n = urj_cmd_params (params)) == 1)
+    if ((n = urj_cmd_params (params)) <= 1)
     {
         urj_error_set (URJ_ERROR_SYNTAX,
                        "%s: #parameters should be >= %d, not %d",
@@ -70,12 +70,13 @@ cmd_shell_run (urj_chain_t *chain, char *params[])
                        len);
         return URJ_STATUS_FAIL;
     }
+    shell_cmd[len - 1] = 0;
 
-    strcpy (shell_cmd, params[1]);
+    strncpy (shell_cmd, params[1], len - 1);
     for (i = 2; i < n; i++)
     {
-        strcat (shell_cmd, " ");
-        strcat (shell_cmd, params[i]);
+        strncat (shell_cmd, " ", len - 1);
+        strncat (shell_cmd, params[i], len - 1);
     }
     urj_log (URJ_LOG_LEVEL_NORMAL, "Executing '%s'\n", shell_cmd);
 
