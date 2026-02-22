@@ -18,6 +18,6 @@
 #
 
 # bits 31-28 of the Device Identification Register
-0001    bcm5354     KFBG Rev 1
+0001	bcm5354		KFBG Rev 1
 0010	bcm5354		KFBG Rev 2
-0011    bcm5354     KFBG Rev 3
+0011	bcm5354		KFBG Rev 3
