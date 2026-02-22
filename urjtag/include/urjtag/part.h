@@ -29,7 +29,7 @@
 
 #define URJ_PART_MANUFACTURER_MAXLEN    25
 #define URJ_PART_PART_MAXLEN            20
-#define URJ_PART_STEPPING_MAXLEN         8
+#define URJ_PART_STEPPING_MAXLEN        12
 
 struct URJ_PART_PARAMS
 {
