@@ -51,6 +51,7 @@
 #include "intel.h"
 #include "amd.h"
 #include "spi_flash.h"
+#include "avr32.h"
 
 const urj_flash_driver_t * const urj_flash_flash_drivers[] = {
     &urj_flash_amd_32_flash_driver,
