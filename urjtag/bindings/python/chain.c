@@ -164,22 +164,6 @@ urj_pyc_precheck (urj_chain_t *urc, int checks_needed)
 /* urj_chain_t / urjtag.chain methods */
 
 static PyObject *
-urj_pyc_bsdl_path (urj_pychain_t *self, PyObject *args)
-{
-    urj_chain_t *urc = self->urchain;
-    const char *pathlist;
-
-    if (!urj_pyc_precheck (urc, 0))
-        return NULL;
-
-    if (!PyArg_ParseTuple (args, "s", &pathlist))
-        return NULL;
-
-    urj_bsdl_set_path (urc, pathlist);
-    return Py_BuildValue ("");  /* python "None" */
-}
-
-static PyObject *
 urj_pyc_cable (urj_pychain_t *self, PyObject *args)
 {
     char *cable_params[5] = { NULL, NULL, NULL, NULL, NULL };
@@ -563,55 +547,6 @@ urj_pyc_get_int_dr_out(urj_pychain_t *self, PyObject *args) {
     return urj_pyc_get_dr(self, 0, 0, args);
 }
 
-#define FILT_I 1
-#define FILT_O 2
-
-static PyObject *
-urj_pyc_signal_list(urj_pychain_t *self, PyObject *args)
-{
-    urj_chain_t  *urc = self->urchain;
-    urj_part_t   *part;
-    urj_part_signal_t *s;
-    PyObject     *rv;
-    const char   *filts = NULL;
-    unsigned      filt  = 0;
-
-    if (!PyArg_ParseTuple(args, "|s", &filts))
-        return NULL;
-
-    if (!urj_pyc_precheck (urc, UPRC_CBL))
-        return NULL;
-
-    part = urj_tap_chain_active_part (urc);
-    if (part == NULL)
-    {
-        PyErr_SetString (UrjtagError, _("no active part in chain"));
-        return NULL;
-    }
-
-    if (filts)
-    {
-        if ( 'I' == toupper(filts[0]) )
-            filt |= FILT_I;
-        if ( 'O' == toupper(filts[0]) )
-            filt |= FILT_O;
-  
-        if ( 0 == strncasecmp(filts, "io", 2) || 0 == strncasecmp(filts, "bi", 2) )
-            filt |= (FILT_I | FILT_O);
-    }
-
-    rv = PyList_New (0);
-    for (s = part->signals; s; s = s->next)
-    {
-        if ( (filt & FILT_I) && ! s->input )
-            continue;
-        if ( (filt & FILT_O) && ! s->output )
-            continue;
-        PyList_Append( rv, PyUnicode_FromFormat ("%s", s->name) );
-    }
-    return rv;
-}
-
 static PyObject *
 urj_pyc_get_int_dr_in(urj_pychain_t *self, PyObject *args) {
     return urj_pyc_get_dr(self, 1, 0, args);
@@ -841,6 +776,15 @@ urj_pyc_setpart (urj_pychain_t *self, PyObject *args)
 }
 
 static PyObject *
+urj_pyc_getpart (urj_pychain_t *self)
+{
+    urj_chain_t *urc = self->urchain;
+
+    return Py_BuildValue ("d", urc->active_part);
+}
+
+
+static PyObject *
 urj_pyc_initbus (urj_pychain_t *self, PyObject *args)
 {
     char *bus_params[5] = { NULL, NULL, NULL, NULL, NULL };
@@ -1034,7 +978,6 @@ urj_pyc_get_register (urj_pychain_t *self, PyObject *args)
     return (PyObject *) reg;
 }
 
-
 static PyObject *
 urj_pyc_readmem (urj_pychain_t *self, PyObject *args)
 {
@@ -1183,6 +1126,94 @@ urj_pyc_getsignal (urj_pychain_t *self, PyObject *args)
     return Py_BuildValue ("i", d);
 }
 
+#define FILT_I 1
+#define FILT_O 2
+
+static PyObject *
+urj_pyc_signal_list(urj_pychain_t *self, PyObject *args)
+{
+    urj_chain_t  *urc = self->urchain;
+    urj_part_t   *part;
+    urj_part_signal_t *s;
+    PyObject     *rv;
+    const char   *filts = NULL;
+    unsigned      filt  = 0;
+
+    if (!PyArg_ParseTuple(args, "|s", &filts))
+        return NULL;
+
+    if (!urj_pyc_precheck (urc, UPRC_CBL))
+        return NULL;
+
+    part = urj_tap_chain_active_part (urc);
+    if (part == NULL)
+    {
+        PyErr_SetString (UrjtagError, _("no active part in chain"));
+        return NULL;
+    }
+
+    if (filts)
+    {
+        if ( 'I' == toupper(filts[0]) )
+            filt |= FILT_I;
+        if ( 'O' == toupper(filts[0]) )
+            filt |= FILT_O;
+
+        if ( 0 == strncasecmp(filts, "io", 2) || 0 == strncasecmp(filts, "bi", 2) )
+            filt |= (FILT_I | FILT_O);
+    }
+
+    rv = PyList_New (0);
+    for (s = part->signals; s; s = s->next)
+    {
+        if ( (filt & FILT_I) && ! s->input )
+            continue;
+        if ( (filt & FILT_O) && ! s->output )
+            continue;
+        PyList_Append( rv, PyUnicode_FromFormat ("%s", s->name) );
+    }
+    return rv;
+}
+
+static PyObject *
+urj_pyc_bsdl_set_path (urj_pychain_t *self, PyObject *args)
+{
+    urj_chain_t *urc = self->urchain;
+    char *bsdl_path;
+
+    if (!PyArg_ParseTuple (args, "s", &bsdl_path))
+        return NULL;
+
+    urj_bsdl_set_path (urc, bsdl_path);
+    return Py_BuildValue ("");
+}
+
+static PyObject *
+urj_pyc_bsdl_get_path (urj_pychain_t *self)
+{
+    urj_chain_t *urc = self->urchain;
+    urj_bsdl_globs_t *globs = &(urc->bsdl);
+
+    if (globs->path_list == NULL)
+        return Py_BuildValue ("s", "No Path List");
+
+    return Py_BuildValue ("s", globs->path_list);
+}
+
+static PyObject *
+urj_pyc_set_jtag_data_dir (urj_pychain_t *self, PyObject *args)
+{
+    //urj_chain_t *urc = self->urchain;
+    char *data_dir;
+
+    if (!PyArg_ParseTuple (args, "s", &data_dir))
+        return NULL;
+
+    urj_set_data_dir(data_dir);
+
+    return Py_BuildValue ("ss", "Set Data Path to ", data_dir);
+}
+
 static PyMethodDef urj_pyc_methods[] =
 {
     {"cable", (PyCFunction) urj_pyc_cable, METH_VARARGS,
@@ -1245,6 +1276,8 @@ static PyMethodDef urj_pyc_methods[] =
      "manually add register to current part on the JTAG chain"},
     {"part", (PyCFunction) urj_pyc_setpart, METH_VARARGS,
      "change active part for current JTAG chain"},
+    {"get_part", (PyCFunction) urj_pyc_getpart, METH_VARARGS,
+     "get active part for current JTAG chain"},
     {"initbus", (PyCFunction) urj_pyc_initbus, METH_VARARGS,
      "initialize bus driver for active part"},
     {"bsdl_addpath", (PyCFunction) urj_pyc_bsdl_addpath, METH_VARARGS,
@@ -1269,10 +1302,14 @@ static PyMethodDef urj_pyc_methods[] =
      "Set signal state in the input BSR"},
     {"getsignal", (PyCFunction) urj_pyc_getsignal, METH_VARARGS,
      "Get signal state from the output BSR"},
-    {"bsdl_path", (PyCFunction)urj_pyc_bsdl_path, METH_VARARGS,
-     "add (';' separated) elements to BSDL search path"},
     {"signal_list", (PyCFunction)urj_pyc_signal_list, METH_VARARGS,
      "get list of (current part's) signal names"},
+    {"bsdl_set_path", (PyCFunction) urj_pyc_bsdl_set_path, METH_VARARGS,
+     "set bsdl search path"},
+    {"bsdl_get_path", (PyCFunction) urj_pyc_bsdl_get_path, METH_VARARGS,
+     "get bsdl search paths"},
+    {"set_jtag_data_dir", (PyCFunction) urj_pyc_set_jtag_data_dir, METH_VARARGS,
+     "set jtag data dir"},
 
     {NULL}                      /* Sentinel */
 };
