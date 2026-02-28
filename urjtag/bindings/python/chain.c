@@ -1057,8 +1057,9 @@ urj_pyc_readmem (urj_pychain_t *self, PyObject *args)
         return NULL;
     }
 
+    int ret = urj_bus_readmem (urj_bus, f, adr, len);
     fclose (f);
-    return urj_py_chkret (urj_bus_readmem (urj_bus, f, adr, len));
+    return urj_py_chkret (ret);
 }
 
 static PyObject *
