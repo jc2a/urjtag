@@ -25,6 +25,8 @@ noinst_LTLIBRARIES = libpld.la
 
 libpld_la_SOURCES = \
 	pld.c \
+	altera.c \
+	altera.h \
 	lattice_bitstream.c \
 	lattice.c \
 	lattice.h \

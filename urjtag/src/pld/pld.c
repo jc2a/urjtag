@@ -36,14 +36,16 @@
 #include <urjtag/chain.h>
 #include <urjtag/part.h>
 #include <urjtag/tap_register.h>
-#include "xilinx.h"
+#include "altera.h"
 #include "lattice.h"
+#include "xilinx.h"
 
 const urj_pld_driver_t * const urj_pld_drivers[] = {
     &urj_pld_lat_ecp3_driver,
     &urj_pld_xc3s_driver,
     &urj_pld_xc6s_driver,
     &urj_pld_xc4v_driver,
+    &urj_pld_alt_driver,
     NULL
 };
 
