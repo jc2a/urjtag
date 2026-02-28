@@ -409,7 +409,7 @@ jlink_debug_buffer (unsigned char *buffer, int length)
 
     for (i = 0; i < length; i += BYTES_PER_LINE)
     {
-        snprintf (line, 5, "%04x", i);
+        snprintf (line, 5, "%04x", i & 0xFFFF);
         for (j = i; j < i + BYTES_PER_LINE && j < length; j++)
         {
             snprintf (s, 4, " %02x", buffer[j]);

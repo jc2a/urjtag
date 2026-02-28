@@ -146,8 +146,8 @@ jtag_create_jtagdir (void)
             /* @@@@ RFHH check if it is a directory */
             errno = 0;
         } else {
-            free (jdir);
             urj_error_IO_set ("cannot mkdir(%s)", jdir);
+            free (jdir);
             return URJ_STATUS_FAIL;
         }
     }
