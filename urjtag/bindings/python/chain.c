@@ -418,7 +418,7 @@ urj_pyc_shift_dr (urj_pychain_t *self)
 }
 
 static PyObject *
-urj_pyc_get_dr (urj_pychain_t *self, int in, int string, PyObject *args)
+urj_pyc_get_dr (urj_pychain_t *self, int in, int type, PyObject *args)
 {
     urj_chain_t *urc = self->urchain;
     urj_part_t *part;
@@ -427,7 +427,7 @@ urj_pyc_get_dr (urj_pychain_t *self, int in, int string, PyObject *args)
     urj_part_instruction_t *active_ir;
     int lsb = -1;
     int msb = -1;
-    const char *value_string;
+    const char *value_string = NULL;
 
     if (!PyArg_ParseTuple (args, "|ii", &msb, &lsb))
         return NULL;
@@ -462,49 +462,99 @@ urj_pyc_get_dr (urj_pychain_t *self, int in, int string, PyObject *args)
         r = dr->out;            /* recently captured+scanned-out values */
 
     if (msb == -1)
-        value_string = urj_tap_register_get_string (r);
-    else
-        value_string = urj_tap_register_get_string_bit_range (r, msb, lsb);
-    if (value_string == NULL)
     {
-        PyErr_SetString (UrjtagError,
-                         _("error obtaining tap register value"));
-        return NULL;
+        if (type == 0 || type == 1)
+        {
+            value_string = urj_tap_register_get_string (r);
+        }
+        else if (type == 2)
+        {
+             urj_data_register_t *bsr;
+             urj_tap_register_t *obsr;
+
+             bsr = urj_part_find_data_register (part, "BSR");
+             if (!bsr)
+             {
+                   PyErr_SetString (UrjtagError,
+                    _("Boundary Scan Register (BSR) not found"));
+                  return NULL;
+             }
+
+             obsr = urj_tap_register_alloc (bsr->out->len);
+             if (!obsr)
+             {
+                  PyErr_SetString (UrjtagError,
+                    _("unable to allocate register"));
+                  return NULL;
+             }
+             urj_tap_register_init (obsr, urj_tap_register_get_string (bsr->out));   // copy
+
+             PyObject *o = Py_BuildValue("{}");
+             urj_part_signal_t *s;
+             for (s = part->signals; s; s = s->next)
+             {
+                 if (s->input != NULL)
+                 {
+                     int new = bsr->out->data[s->input->bit];
+                     urj_part_salias_t *a;
+                     for (a = part->saliases; a; a = a->next)
+                     {
+                         if (a->signal == s)
+                         PyObject_SetItem(o, Py_BuildValue ("s", a->name), Py_BuildValue ("i", new));
+                     }
+                     PyObject_SetItem(o, Py_BuildValue ("s", s->name), Py_BuildValue ("i", new));
+                 }
+            }
+
+            urj_tap_register_free (obsr);
+            return o;
+        }
+        else
+        {
+            return Py_BuildValue ("L", urj_tap_register_get_value (r));
+        }
+    } else
+        value_string = urj_tap_register_get_string_bit_range(r, msb, lsb);
+
+    if (value_string) {
+        if (type == 1)
+            return Py_BuildValue("s", value_string);
+        else if (type == 2)
+            return PyLong_FromString((char *) value_string, NULL, 2);
     }
 
-    if (string)
-        return Py_BuildValue ("s", value_string);
-    else
-        return PyLong_FromString((char *)value_string, NULL, 2);
+    PyErr_SetString(UrjtagError,
+                    _("error obtaining tap register value"));
+    return NULL;
 }
 
 static PyObject *
-urj_pyc_get_str_dr_out (urj_pychain_t *self, PyObject *args)
-{
-    return urj_pyc_get_dr (self, 0, 1, args);
+urj_pyc_get_str_dr_out(urj_pychain_t *self, PyObject *args) {
+    return urj_pyc_get_dr(self, 0, 1, args);
 }
 
 static PyObject *
-urj_pyc_get_str_dr_in (urj_pychain_t *self, PyObject *args)
-{
-    return urj_pyc_get_dr (self, 1, 1, args);
+urj_pyc_get_str_dr_in(urj_pychain_t *self, PyObject *args) {
+    return urj_pyc_get_dr(self, 1, 1, args);
 }
 
 static PyObject *
-urj_pyc_get_int_dr_out (urj_pychain_t *self, PyObject *args)
-{
-    return urj_pyc_get_dr (self, 0, 0, args);
+urj_pyc_get_dict_dr_out(urj_pychain_t *self, PyObject *args) {
+    return urj_pyc_get_dr(self, 0, 2, args);
 }
 
 static PyObject *
-urj_pyc_get_int_dr_in (urj_pychain_t *self, PyObject *args)
-{
-    return urj_pyc_get_dr (self, 1, 0, args);
+urj_pyc_get_int_dr_out(urj_pychain_t *self, PyObject *args) {
+    return urj_pyc_get_dr(self, 0, 0, args);
 }
 
 static PyObject *
-urj_pyc_set_dr (urj_pychain_t *self, int in, PyObject *args)
-{
+urj_pyc_get_int_dr_in(urj_pychain_t *self, PyObject *args) {
+    return urj_pyc_get_dr(self, 1, 0, args);
+}
+
+static PyObject *
+urj_pyc_set_dr(urj_pychain_t *self, int in, PyObject *args) {
     urj_chain_t *urc = self->urchain;
     urj_part_t *part;
     urj_tap_register_t *r;
@@ -515,26 +565,23 @@ urj_pyc_set_dr (urj_pychain_t *self, int in, PyObject *args)
     int lsb = -1;
     int msb = -1;
 
-    if (!PyArg_ParseTuple (args, "s|ii", &newstr, &msb, &lsb))
-    {
-        PyErr_Clear ();
-        if (!PyArg_ParseTuple (args, "K|ii", &newval, &msb, &lsb))
+    if (!PyArg_ParseTuple(args, "s|ii", &newstr, &msb, &lsb)) {
+        PyErr_Clear();
+        if (!PyArg_ParseTuple(args, "K|ii", &newval, &msb, &lsb))
             return NULL;
     }
 
-    if (!urj_pyc_precheck (urc, UPRC_CBL))
+    if (!urj_pyc_precheck(urc, UPRC_CBL))
         return NULL;
 
-    part = urj_tap_chain_active_part (urc);
-    if (part == NULL)
-    {
-        PyErr_SetString (UrjtagError, _("no active part in chain"));
+    part = urj_tap_chain_active_part(urc);
+    if (part == NULL) {
+        PyErr_SetString(UrjtagError, _("no active part in chain"));
         return NULL;
     }
     active_ir = part->active_instruction;
-    if (active_ir == NULL)
-    {
-        PyErr_SetString (UrjtagError, _("part without active instruction"));
+    if (active_ir == NULL) {
+        PyErr_SetString(UrjtagError, _("part without active instruction"));
         return NULL;
     }
     dr = active_ir->data_register;
@@ -1094,6 +1141,8 @@ static PyMethodDef urj_pyc_methods[] =
      "get bits that will be scanned in on next shift_dr, as string"},
     {"get_dr_out_string", (PyCFunction) urj_pyc_get_str_dr_out, METH_VARARGS,
      "retrieve values scanned out from the data registers on the last shift_dr, as string"},
+    {"get_dr_out_boundary_dict", (PyCFunction) urj_pyc_get_dict_dr_out, METH_VARARGS,
+     "retrieve values scaned out as a dictionary keyed by Boundary Scan Register (BSR) bit names"},
     {"get_dr_in", (PyCFunction) urj_pyc_get_int_dr_in, METH_VARARGS,
      "get bits that will be scanned in on next shift_dr, as integer"},
     {"get_dr_out", (PyCFunction) urj_pyc_get_int_dr_out, METH_VARARGS,

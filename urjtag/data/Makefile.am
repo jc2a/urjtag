@@ -156,6 +156,8 @@ nobase_dist_pkgdata_DATA = \
 	lattice/lc4128c-tqfp100/lc4128c-tqfp100 \
 	lattice/lfec2-12e/STEPPINGS \
 	lattice/lfec2-12e/lfec2-12e \
+	lattice/lfe3-35ea/STEPPINGS \
+	lattice/lfe3-35ea/lfe3_35ea_fpbga484 \
 	lattice/lfe5u-45f-cabga256/STEPPINGS \
 	lattice/lfe5u-45f-cabga256/lfe5u-45f-cabga256 \
 	lattice/m4a3-256.192-fpbga256/STEPPINGS \
