@@ -509,17 +509,13 @@ urj_pyc_get_dr (urj_pychain_t *self, int in, int type, PyObject *args)
             urj_tap_register_free (obsr);
             return o;
         }
-        else
-        {
-            return Py_BuildValue ("L", urj_tap_register_get_value (r));
-        }
     } else
         value_string = urj_tap_register_get_string_bit_range(r, msb, lsb);
 
     if (value_string) {
         if (type == 1)
             return Py_BuildValue("s", value_string);
-        else if (type == 2)
+        else
             return PyLong_FromString((char *) value_string, NULL, 2);
     }
 
