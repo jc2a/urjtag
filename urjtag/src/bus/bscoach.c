@@ -41,7 +41,7 @@
 typedef struct
 {
     uint32_t last_adr;
-    urj_part_signal_t *adr[15];
+    urj_part_signal_t *adr[18];
     urj_part_signal_t *d[8];
     urj_part_signal_t *deca;
     urj_part_signal_t *decb;
@@ -59,6 +59,74 @@ typedef struct
 #define WE_F            ((bus_params_t *) bus->params)->we_f
 #define OE_F            ((bus_params_t *) bus->params)->oe_f
 
+#define MAX_LINE 256
+
+
+
+static flashbscoach_load_conf(urj_bus_t *bus, urj_part_t *part) {
+    int failed = 0;
+
+    FILE *f = fopen("coachpins.txt", "r");
+    if (!f) {
+        perror("coachpins.txt missing");
+        return 1;
+    }
+    int index;
+    char line[MAX_LINE];
+    while (fgets(line, sizeof(line), f)) {
+        // Kommentarzeilen überspringen
+        if (line[0] == '#' || line[0] == '\n') continue;
+
+        // Zeilenumbruch entfernen
+        line[strcspn(line, "\r\n")] = 0;
+
+        // Split bei '='
+        char *eq = strchr(line, '=');
+        if (!eq) continue; // keine gültige Zeile
+
+        *eq = '\0'; // trennt key und value
+        char *key = line;
+        char *value = eq + 1;
+        char buf[10];
+
+        printf("Key: '%s'  Value: '%s'\n", key, value);
+        switch (key[0]) {
+            case 'A':
+                strcpy(key+1, buf);
+                index = atoi(buf);
+                failed |= urj_bus_generic_attach_sig (part, &(ADR[index]), value);
+                break;
+            case 'D':
+                strcpy(key+1, buf);
+                index = atoi(buf);
+                failed |= urj_bus_generic_attach_sig (part, &(D[index]), value);
+                break;
+            case 'C':
+                switch (key[1]) {
+                    case '0':
+                        failed |= urj_bus_generic_attach_sig (part, &(DECA), value);
+                    break;
+                    case '1':
+                        failed |= urj_bus_generic_attach_sig (part, &(DECB), value);
+                    break;
+                    case '2':
+                        failed |= urj_bus_generic_attach_sig (part, &(DECC), value);
+                    break;
+                }
+                break;
+            case 'O':
+                failed |= urj_bus_generic_attach_sig (part, &(OE_F), value);
+                break;
+            case 'W':
+                failed |= urj_bus_generic_attach_sig (part, &(WE_F), value);
+                break;
+        }
+    }
+
+    fclose(f);
+    return failed;
+
+}
 
 /**
  * bus->driver->(*new_bus)
@@ -77,39 +145,46 @@ flashbscoach_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
         return NULL;
     part = bus->part;
 
-    //OE & WE
-    failed |= urj_bus_generic_attach_sig (part, &(OE_F), "PB02_00");
-    failed |= urj_bus_generic_attach_sig (part, &(WE_F), "PB02_08");
-    //Decoder
-    failed |= urj_bus_generic_attach_sig (part, &(DECA), "PB02_04");
-    failed |= urj_bus_generic_attach_sig (part, &(DECB), "PB00_12");
-    failed |= urj_bus_generic_attach_sig (part, &(DECC), "PB02_07");
-    //Adressbus
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[0]), "PB01_09");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[1]), "PB01_06");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[2]), "PB01_10");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[3]), "PB01_11");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[4]), "PB01_12");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[5]), "PB01_13");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[6]), "PB01_15");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[7]), "PB01_14");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[8]), "PB01_16");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[9]), "PB00_01");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[10]), "PB00_04");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[11]), "PB00_05");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[12]), "PB00_00");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[13]), "PB00_07");
-    failed |= urj_bus_generic_attach_sig (part, &(ADR[14]), "PB00_02");
-    //Datenbus
-    failed |= urj_bus_generic_attach_sig (part, &(D[0]), "PB00_10");
-    failed |= urj_bus_generic_attach_sig (part, &(D[1]), "PB00_06");
-    failed |= urj_bus_generic_attach_sig (part, &(D[2]), "PB00_13");
-    failed |= urj_bus_generic_attach_sig (part, &(D[3]), "PB00_09");
-    failed |= urj_bus_generic_attach_sig (part, &(D[4]), "PB00_14");
-    failed |= urj_bus_generic_attach_sig (part, &(D[5]), "PB00_16");
-    failed |= urj_bus_generic_attach_sig (part, &(D[6]), "PB02_01");
-    failed |= urj_bus_generic_attach_sig (part, &(D[7]), "PB00_11");
+    failed = flashbscoach_load_conf(bus, part);
 
+    /*
+    //OE & WE
+    failed |= urj_bus_generic_attach_sig (part, &(OE_F), "OE");
+    failed |= urj_bus_generic_attach_sig (part, &(WE_F), "WE");
+    //Decoder
+    failed |= urj_bus_generic_attach_sig (part, &(DECA), "DECA");
+    failed |= urj_bus_generic_attach_sig (part, &(DECB), "DECB");
+    failed |= urj_bus_generic_attach_sig (part, &(DECC), "DECC");
+    //Adressbus
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[0]), "A0");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[1]), "A1");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[2]), "A2");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[3]), "A3");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[4]), "A4");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[5]), "A5");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[6]), "A6");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[7]), "A7");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[8]), "A8");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[9]), "A9");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[10]), "A10");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[11]), "A11");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[12]), "A12");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[13]), "A13");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[14]), "A14");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[15]), "A15");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[16]), "A16");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[17]), "A17");
+    failed |= urj_bus_generic_attach_sig (part, &(ADR[18]), "A18");
+    //Datenbus
+    failed |= urj_bus_generic_attach_sig (part, &(D[0]), "D0");
+    failed |= urj_bus_generic_attach_sig (part, &(D[1]), "D1");
+    failed |= urj_bus_generic_attach_sig (part, &(D[2]), "D2");
+    failed |= urj_bus_generic_attach_sig (part, &(D[3]), "D3");
+    failed |= urj_bus_generic_attach_sig (part, &(D[4]), "D4");
+    failed |= urj_bus_generic_attach_sig (part, &(D[5]), "D5");
+    failed |= urj_bus_generic_attach_sig (part, &(D[6]), "D6");
+    failed |= urj_bus_generic_attach_sig (part, &(D[7]), "D8");
+    */
     if (failed)
     {
         urj_bus_generic_free (bus);
@@ -135,11 +210,6 @@ flashbscoach_bus_printinfo (urj_log_level_t ll, urj_bus_t *bus)
              _("Goepel electronic Boundary Scan Coach compatible bus driver via BSR (JTAG part No. %d)\n"),
             i);
 }
-
-
-
-
-
 
 
 /**
