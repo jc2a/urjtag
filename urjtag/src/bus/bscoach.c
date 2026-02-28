@@ -63,7 +63,7 @@ typedef struct
 
 
 
-static flashbscoach_load_conf(urj_bus_t *bus, urj_part_t *part) {
+static int flashbscoach_load_conf(urj_bus_t *bus, urj_part_t *part) {
     int failed = 0;
 
     FILE *f = fopen("coachpins.txt", "r");
