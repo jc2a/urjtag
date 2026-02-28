@@ -67,20 +67,21 @@ typedef struct
 #define ASHIFT ((bus_params_t *) bus->params)->ashift
 
 static void
-prototype_bus_signal_parse (const char *str, char *fmt, int *inst)
+prototype_bus_signal_parse (const char *str, char *fmt, size_t fmtlen, int *inst)
 {
+    /* BEWARE: sizes literally embedded in format string! */
     char pre[16], suf[16];
 
-    switch (sscanf (str, "%[^0-9]%d%s", pre, inst, suf))
+    switch (sscanf (str, "%15[^0-9]%d%15s", pre, inst, suf))
     {
     case 1:
-        strcpy (fmt, str);
+        snprintf (fmt, fmtlen, "%s", str );
         break;
     case 2:
-        sprintf (fmt, "%s%s", pre, "%d");
+        snprintf (fmt, fmtlen, "%s%s", pre, "%d");
         break;
     case 3:
-        sprintf (fmt, "%s%s%s", pre, "%d", suf);
+        snprintf (fmt, fmtlen, "%s%s%s", pre, "%d", suf);
     }
     // @@@@ RFHH what about failure?
 }
@@ -95,7 +96,7 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
 {
     urj_bus_t *bus;
     urj_part_signal_t *sig;
-    char buff[16], fmt[16], afmt[16], dfmt[16];
+    char buff[16], fmt[64], afmt[64], dfmt[64];
     int i, j, inst, max, min;
     int failed = 0;
     int ashift = -1;
@@ -150,7 +151,7 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
             value = cmd_params[i]->value.string;
 
             inst = 32;
-            prototype_bus_signal_parse (value, fmt, &inst);
+            prototype_bus_signal_parse (value, fmt, sizeof(fmt), &inst);
             // @@@@ RFHH Flag error?
             // @@@@ RFHH If it is mandatory for a signal to have an int inst
             // number, why does prototype_bus_signal_parse() accept values
@@ -172,22 +173,22 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
             case URJ_BUS_PARAM_KEY_ALSB:
                 ALSBI = inst;
                 A[inst] = sig;
-                strcpy (afmt, fmt);
+                snprintf (afmt, sizeof(afmt), "%s", fmt );
                 break;
             case URJ_BUS_PARAM_KEY_AMSB:
                 AMSBI = inst;
                 A[inst] = sig;
-                strcpy (afmt, fmt);
+                snprintf (afmt, sizeof(afmt), "%s", fmt );
                 break;
             case URJ_BUS_PARAM_KEY_DLSB:
                 DLSBI = inst;
                 D[inst] = sig;
-                strcpy (dfmt, fmt);
+                snprintf (dfmt, sizeof(dfmt), "%s", fmt );
                 break;
             case URJ_BUS_PARAM_KEY_DMSB:
                 DMSBI = inst;
                 D[inst] = sig;
-                strcpy (dfmt, fmt);
+                snprintf (dfmt, sizeof(dfmt), "%s", fmt );
                 break;
             case URJ_BUS_PARAM_KEY_CS:
             case URJ_BUS_PARAM_KEY_NCS:
@@ -220,14 +221,14 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
         {
             for (min = 0; min <= 31; min++)
             {
-                sprintf (buff, afmt, min);
+                snprintf (buff, sizeof(buff), afmt, min);
                 A[min] = urj_part_find_signal (bus->part, buff);
                 if (A[min])
                     break;
             }
             for (max = 31; max >= 0; max--)
             {
-                sprintf (buff, afmt, max);
+                snprintf (buff, sizeof(buff), afmt, max);
                 A[max] = urj_part_find_signal (bus->part, buff);
                 if (A[max])
                     break;
@@ -241,7 +242,7 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
         AW = (AMSBI > ALSBI ? AMSBI - ALSBI : ALSBI - AMSBI) + 1;
         for (i = 0, j = ALSBI; i < AW; i++, j += AI)
         {
-            sprintf (buff, afmt, j);
+            snprintf (buff, sizeof(buff), afmt, j);
             // @@@@ RFHH check result
             A[j] = urj_part_find_signal (bus->part, buff);
         }
@@ -259,14 +260,14 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
         {
             for (min = 0; min <= 31; min++)
             {
-                sprintf (buff, dfmt, min);
+                snprintf (buff, sizeof(buff), dfmt, min);
                 D[min] = urj_part_find_signal (bus->part, buff);
                 if (D[min])
                     break;
             }
             for (max = 31; max >= 0; max--)
             {
-                sprintf (buff, dfmt, max);
+                snprintf (buff, sizeof(buff), dfmt, max);
                 D[max] = urj_part_find_signal (bus->part, buff);
                 if (D[max])
                     break;
@@ -280,7 +281,7 @@ prototype_bus_new (urj_chain_t *chain, const urj_bus_driver_t *driver,
         DW = (DMSBI > DLSBI ? DMSBI - DLSBI : DLSBI - DMSBI) + 1;
         for (i = 0, j = DLSBI; i < DW; i++, j += DI)
         {
-            sprintf (buff, dfmt, j);
+            snprintf (buff, sizeof(buff), dfmt, j);
             D[j] = urj_part_find_signal (bus->part, buff);
         }
 

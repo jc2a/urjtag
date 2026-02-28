@@ -413,7 +413,7 @@ jlink_debug_buffer (unsigned char *buffer, int length)
         for (j = i; j < i + BYTES_PER_LINE && j < length; j++)
         {
             snprintf (s, 4, " %02x", buffer[j]);
-            strcat (line, s);
+            strncat (line, s, sizeof(line) - 1);
         }
         urj_log (URJ_LOG_LEVEL_DETAIL, "%s\n", line);
     }

@@ -283,12 +283,14 @@ urj_bsdl_scan_files (urj_chain_t *chain, const char *idcode, int proc_mode)
                     strcat (name, "/");
                     strcat (name, elem->d_name);
 
+                    printf("Looking for file: %s\n", name);
                     if (stat (name, &buf) == 0)
                     {
                         if (buf.st_mode & S_IFREG)
                         {
                             result = urj_bsdl_read_file (chain, name, proc_mode,
                                                          idcode);
+                            printf("urj_bsdl_read_file returned %d\n", result);
                             if (result == 1)
                                 printf (_("  Filename:     %s\n"), name);
                         }

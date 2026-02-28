@@ -164,6 +164,22 @@ urj_pyc_precheck (urj_chain_t *urc, int checks_needed)
 /* urj_chain_t / urjtag.chain methods */
 
 static PyObject *
+urj_pyc_bsdl_path (urj_pychain_t *self, PyObject *args)
+{
+    urj_chain_t *urc = self->urchain;
+    const char *pathlist;
+
+    if (!urj_pyc_precheck (urc, 0))
+        return NULL;
+
+    if (!PyArg_ParseTuple (args, "s", &pathlist))
+        return NULL;
+
+    urj_bsdl_set_path (urc, pathlist);
+    return Py_BuildValue ("");  /* python "None" */
+}
+
+static PyObject *
 urj_pyc_cable (urj_pychain_t *self, PyObject *args)
 {
     char *cable_params[5] = { NULL, NULL, NULL, NULL, NULL };
@@ -177,8 +193,11 @@ urj_pyc_cable (urj_pychain_t *self, PyObject *args)
                            &drivername,
                            &cable_params[0],
                            &cable_params[1],
-                           &cable_params[2], &cable_params[3]))
+                           &cable_params[2], &cable_params[3])) {
         return NULL;
+    }
+
+    urc->bsdl.debug = 1;
 
     return urj_py_chkret (urj_tap_chain_connect (urc, drivername, cable_params));
 }
@@ -544,6 +563,55 @@ urj_pyc_get_int_dr_out(urj_pychain_t *self, PyObject *args) {
     return urj_pyc_get_dr(self, 0, 0, args);
 }
 
+#define FILT_I 1
+#define FILT_O 2
+
+static PyObject *
+urj_pyc_signal_list(urj_pychain_t *self, PyObject *args)
+{
+    urj_chain_t  *urc = self->urchain;
+    urj_part_t   *part;
+    urj_part_signal_t *s;
+    PyObject     *rv;
+    const char   *filts = NULL;
+    unsigned      filt  = 0;
+
+    if (!PyArg_ParseTuple(args, "|s", &filts))
+        return NULL;
+
+    if (!urj_pyc_precheck (urc, UPRC_CBL))
+        return NULL;
+
+    part = urj_tap_chain_active_part (urc);
+    if (part == NULL)
+    {
+        PyErr_SetString (UrjtagError, _("no active part in chain"));
+        return NULL;
+    }
+
+    if (filts)
+    {
+        if ( 'I' == toupper(filts[0]) )
+            filt |= FILT_I;
+        if ( 'O' == toupper(filts[0]) )
+            filt |= FILT_O;
+  
+        if ( 0 == strncasecmp(filts, "io", 2) || 0 == strncasecmp(filts, "bi", 2) )
+            filt |= (FILT_I | FILT_O);
+    }
+
+    rv = PyList_New (0);
+    for (s = part->signals; s; s = s->next)
+    {
+        if ( (filt & FILT_I) && ! s->input )
+            continue;
+        if ( (filt & FILT_O) && ! s->output )
+            continue;
+        PyList_Append( rv, PyUnicode_FromFormat ("%s", s->name) );
+    }
+    return rv;
+}
+
 static PyObject *
 urj_pyc_get_int_dr_in(urj_pychain_t *self, PyObject *args) {
     return urj_pyc_get_dr(self, 1, 0, args);
@@ -561,6 +629,8 @@ urj_pyc_set_dr(urj_pychain_t *self, int in, PyObject *args) {
     int lsb = -1;
     int msb = -1;
 
+    PyErr_Clear ();
+
     if (!PyArg_ParseTuple(args, "s|ii", &newstr, &msb, &lsb)) {
         PyErr_Clear();
         if (!PyArg_ParseTuple(args, "K|ii", &newval, &msb, &lsb))
@@ -575,6 +645,7 @@ urj_pyc_set_dr(urj_pychain_t *self, int in, PyObject *args) {
         PyErr_SetString(UrjtagError, _("no active part in chain"));
         return NULL;
     }
+
     active_ir = part->active_instruction;
     if (active_ir == NULL) {
         PyErr_SetString(UrjtagError, _("part without active instruction"));
@@ -1197,6 +1268,10 @@ static PyMethodDef urj_pyc_methods[] =
      "Set signal state in the input BSR"},
     {"getsignal", (PyCFunction) urj_pyc_getsignal, METH_VARARGS,
      "Get signal state from the output BSR"},
+    {"bsdl_path", (PyCFunction)urj_pyc_bsdl_path, METH_VARARGS,
+     "add (';' separated) elements to BSDL search path"},
+    {"signal_list", (PyCFunction)urj_pyc_signal_list, METH_VARARGS,
+     "get list of (current part's) signal names"},
 
     {NULL}                      /* Sentinel */
 };
