@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jtag 0.5.1\n"
 "Report-Msgid-Bugs-To: marcel@telka.sk\n"
-"POT-Creation-Date: 2021-03-21 20:46+0100\n"
+"POT-Creation-Date: 2026-02-28 20:13-0500\n"
 "PO-Revision-Date: 2003-10-08 21:25+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -230,12 +230,12 @@ msgstr ""
 msgid "BSDL file '%s' contains errors in VHDL stage, stopping\n"
 msgstr ""
 
-#: src/bsdl/bsdl.c:293 src/tap/detect.c:418
+#: src/bsdl/bsdl.c:295 src/tap/detect.c:418
 #, c-format
 msgid "  Filename:     %s\n"
 msgstr "  Súbor:     %s\n"
 
-#: src/bsdl/bsdl.c:305
+#: src/bsdl/bsdl.c:307
 #, fuzzy, c-format
 msgid "Cannot open directory %s\n"
 msgstr "Nepodarilo sa otvoriť %s\n"
@@ -506,7 +506,7 @@ msgstr ""
 msgid "Broadcom BCM1250 compatible bus driver via BSR"
 msgstr "Broadcom BCM1250 kompatibilný ovládač zbernice cez BSR"
 
-#: src/bus/bscoach.c:135
+#: src/bus/bscoach.c:210
 #, fuzzy, c-format
 msgid ""
 "Goepel electronic Boundary Scan Coach compatible bus driver via BSR (JTAG "
@@ -514,7 +514,7 @@ msgid ""
 msgstr ""
 "Hitachi SH7727 kompatibilný ovládač zbernice cez BSR (JTAG súčiastka č. %d)\n"
 
-#: src/bus/bscoach.c:376
+#: src/bus/bscoach.c:446
 msgid ""
 "Goepel Boundary Scan Coach compatible bus driver for flash programming via "
 "BSR"
@@ -583,7 +583,7 @@ msgstr ""
 msgid "EJTAG compatible bus driver via PrAcc"
 msgstr "Intel PXA2x0 kompatibilný ovládač zbernice cez BSR"
 
-#: src/bus/fjmem.c:104 src/part/part.c:355
+#: src/bus/fjmem.c:104 src/part/part.c:363
 #, fuzzy
 msgid "invalid instruction length"
 msgstr "neplatná dĺžka inštrukcie\n"
@@ -780,49 +780,49 @@ msgstr ""
 msgid "IBM PowerPC 440GX 8-bit EBC compatible bus driver via BSR"
 msgstr "Intel IXP425 kompatibilný ovládač zbernice cez BSR"
 
-#: src/bus/prototype.c:131
+#: src/bus/prototype.c:132
 #, c-format
 msgid "value %lu not defined for parameter %s"
 msgstr ""
 
-#: src/bus/prototype.c:164 src/cmd/cmd_get.c:71 src/cmd/cmd_set.c:98
+#: src/bus/prototype.c:165 src/cmd/cmd_get.c:71 src/cmd/cmd_set.c:98
 #: src/cmd/cmd_test.c:75
 #, fuzzy, c-format
 msgid "signal '%s' not found"
 msgstr "signál '%s' nenájdený\n"
 
-#: src/bus/prototype.c:208
+#: src/bus/prototype.c:209
 #, c-format
 msgid "parameter %s is unknown"
 msgstr ""
 
-#: src/bus/prototype.c:252
+#: src/bus/prototype.c:253
 msgid "parameters alsb=<signal> and/or amsb=<signal> are not defined"
 msgstr ""
 
-#: src/bus/prototype.c:312
+#: src/bus/prototype.c:313
 msgid "parameters dlsb=<signal> and/or dmsb=<signal> are not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:319
+#: src/bus/prototype.c:320
 msgid "parameter cs=<signal> or ncs=<signal> is not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:326
+#: src/bus/prototype.c:327
 msgid "parameter oe=<signal> or noe=<signal> is not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:333
+#: src/bus/prototype.c:334
 msgid "parameter we=<signal> or nwe=<signal> is not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:359
+#: src/bus/prototype.c:360
 #, fuzzy, c-format
 msgid "Configurable prototype bus driver via BSR (JTAG part No. %d)\n"
 msgstr ""
 "Intel SA-1110 kompatibilný ovládač zbernice cez BSR (JTAG súčiastka č. %d)\n"
 
-#: src/bus/prototype.c:515
+#: src/bus/prototype.c:516
 msgid ""
 "Configurable prototype bus driver via BSR, requires parameters:\n"
 "           amsb=<addr MSB> alsb=<addr LSB> dmsb=<data MSB> dlsb=<data LSB>\n"
@@ -895,7 +895,7 @@ msgstr "čítam:\n"
 msgid "addr: 0x%08llX\r"
 msgstr "adresa: 0x%08X"
 
-#: src/bus/readmem.c:131 src/bus/writemem.c:143 src/flash/flash.c:262
+#: src/bus/readmem.c:131 src/bus/writemem.c:143 src/flash/flash.c:265
 msgid ""
 "\n"
 "Done.\n"
@@ -906,8 +906,8 @@ msgstr ""
 #: src/bus/s3c4510x.c:177
 #, fuzzy, c-format
 msgid ""
-"Samsung S3C4510B compatibile bus driver via BSR (JTAG part No. %d) RCS0="
-"%ubit\n"
+"Samsung S3C4510B compatibile bus driver via BSR (JTAG part No. %d) "
+"RCS0=%ubit\n"
 msgstr ""
 "Samsung S3C4510B kompatibilný ovládač zbernice cez BSR (JTAG súčiastka č. "
 "%d)\n"
@@ -1902,7 +1902,7 @@ msgstr ""
 msgid "define an alias for a signal"
 msgstr "definovať nový signál pre súčiastku"
 
-#: src/cmd/cmd_scan.c:71 src/part/part.c:227 src/part/part.c:280
+#: src/cmd/cmd_scan.c:71 src/part/part.c:235 src/part/part.c:288
 #, fuzzy
 msgid "Boundary Scan Register (BSR) not found"
 msgstr "%s(%s:%d) Boundary Scan Register (BSR) nebol nájdený\n"
@@ -1951,7 +1951,7 @@ msgstr ""
 msgid "set external signal value"
 msgstr "nastaviť hodnotu externého signálu"
 
-#: src/cmd/cmd_shell.c:104
+#: src/cmd/cmd_shell.c:105
 #, c-format
 msgid ""
 "Usage: %s CMD\n"
@@ -1960,7 +1960,7 @@ msgid ""
 "CMD OS Shell Command\n"
 msgstr ""
 
-#: src/cmd/cmd_shell.c:112
+#: src/cmd/cmd_shell.c:113
 msgid "run a shell command"
 msgstr ""
 
@@ -2080,7 +2080,7 @@ msgstr ""
 msgid "write content of file to the memory"
 msgstr ""
 
-#: src/flash/amd.c:311
+#: src/flash/amd.c:312
 msgid ""
 "Chip: AMD Flash\n"
 "\tManufacturer: "
@@ -2088,8 +2088,9 @@ msgstr ""
 "Čip: AMD Flash\n"
 "\tVýrobca: "
 
-#: src/flash/amd.c:316 src/flash/amd.c:345 src/flash/amd.c:367
-#: src/flash/amd.c:386 src/flash/amd.c:408 src/flash/amd_flash.c:269
+#: src/flash/amd.c:317 src/flash/amd.c:346 src/flash/amd.c:368
+#: src/flash/amd.c:387 src/flash/amd.c:428 src/flash/amd.c:450
+#: src/flash/amd_flash.c:269
 msgid ""
 "\n"
 "\tChip: "
@@ -2097,18 +2098,24 @@ msgstr ""
 "\n"
 "\tČip: "
 
-#: src/flash/amd.c:339 src/flash/amd.c:361 src/flash/amd.c:380
-#: src/flash/amd.c:402 src/flash/amd.c:415 src/flash/amd_flash.c:281
+#: src/flash/amd.c:340 src/flash/amd.c:362 src/flash/amd.c:381
+#: src/flash/amd.c:422 src/flash/amd.c:444 src/flash/amd.c:457
+#: src/flash/amd_flash.c:281
 #, c-format
 msgid "Unknown (ID 0x%04x)"
 msgstr "Neznámy (ID 0x%04x)"
 
-#: src/flash/amd.c:420
+#: src/flash/amd.c:417
+#, fuzzy, c-format
+msgid "Unknown MT28EW variant (ID 0x%04x)"
+msgstr "Neznámy (ID 0x%04x)"
+
+#: src/flash/amd.c:462
 #, fuzzy, c-format
 msgid "Unknown manufacturer (ID 0x%04x) Chip (ID 0x%04x)"
 msgstr "Neznámy výrobca (ID 0x%04x)"
 
-#: src/flash/amd.c:424 src/flash/amd_flash.c:284
+#: src/flash/amd.c:466 src/flash/amd_flash.c:284
 #, c-format
 msgid ""
 "\n"
@@ -2117,21 +2124,21 @@ msgstr ""
 "\n"
 "\tChránené: %04x\n"
 
-#: src/flash/amd.c:660 src/flash/amd.c:673 src/flash/amd.c:686
-#: src/flash/detectflash.c:117 src/flash/detectflash.c:149
+#: src/flash/amd.c:703 src/flash/amd.c:716 src/flash/amd.c:729
+#: src/flash/detectflash.c:119 src/flash/detectflash.c:151
 msgid "AMD/Fujitsu Standard Command Set"
 msgstr "Štandardná množina príkazov AMD/Fujitsu"
 
-#: src/flash/amd.c:661
+#: src/flash/amd.c:704
 msgid "supported: AMD 29LV640D, 29LV641D, 29LV642D; 2x16 Bit"
 msgstr "podporované: AMD 29LV640D, 29LV641D, 29LV642D; 2x16 bitov"
 
-#: src/flash/amd.c:674
+#: src/flash/amd.c:717
 #, fuzzy
 msgid "supported: AMD 29LV800B, S29GLxxxN; MX29LV640B, W19B320AT/B; 1x16 Bit"
 msgstr "podporované: AMD 29LV800B; 1x16 bitov"
 
-#: src/flash/amd.c:687
+#: src/flash/amd.c:730
 #, fuzzy
 msgid ""
 "supported: AMD 29LV160, AMD 29LV065D, AMD 29LV040B, S29GLxxxN, W19B320AT/B; "
@@ -2170,54 +2177,54 @@ msgstr "Štandardná množina príkazov AMD/Fujitsu"
 msgid "supported: AMD 29LV040B, 29C040B, 1x8 Bit"
 msgstr "podporované: AMD 29LV800B; 1x16 bitov"
 
-#: src/flash/detectflash.c:75
+#: src/flash/detectflash.c:77
 msgid "bus driver"
 msgstr ""
 
-#: src/flash/detectflash.c:97
+#: src/flash/detectflash.c:99
 #, fuzzy
 msgid "Flash not found"
 msgstr "Pamäť flash nebola nájdená!\n"
 
-#: src/flash/detectflash.c:106
+#: src/flash/detectflash.c:108
 msgid "Query identification string:\n"
 msgstr "Identifikačný reťazec:\n"
 
-#: src/flash/detectflash.c:111 src/flash/detectflash.c:143
+#: src/flash/detectflash.c:113 src/flash/detectflash.c:145
 msgid "null"
 msgstr "nič"
 
-#: src/flash/detectflash.c:114 src/flash/detectflash.c:146
+#: src/flash/detectflash.c:116 src/flash/detectflash.c:148
 msgid "Intel/Sharp Extended Command Set"
 msgstr "Rozšírená sada príkazov Intel/Sharp"
 
-#: src/flash/detectflash.c:120 src/flash/detectflash.c:152
-#: src/flash/intel.c:575 src/flash/intel.c:588 src/flash/intel.c:601
+#: src/flash/detectflash.c:122 src/flash/detectflash.c:154
+#: src/flash/intel.c:593 src/flash/intel.c:606 src/flash/intel.c:619
 msgid "Intel Standard Command Set"
 msgstr "Štandardná sada príkazov Intel"
 
-#: src/flash/detectflash.c:123 src/flash/detectflash.c:155
+#: src/flash/detectflash.c:125 src/flash/detectflash.c:157
 msgid "AMD/Fujitsu Extended Command Set"
 msgstr "Rozšírená sada príkazov AMD/Fujitsu"
 
-#: src/flash/detectflash.c:126 src/flash/detectflash.c:158
+#: src/flash/detectflash.c:128 src/flash/detectflash.c:160
 msgid "Mitsubishi Standard Command Set"
 msgstr "Štandardná sada príkazov Mitsubishi"
 
-#: src/flash/detectflash.c:129 src/flash/detectflash.c:161
+#: src/flash/detectflash.c:131 src/flash/detectflash.c:163
 msgid "Mitsubishi Extended Command Set"
 msgstr "Rozšírená sada príkazov Mitsubishi"
 
-#: src/flash/detectflash.c:132 src/flash/detectflash.c:164
+#: src/flash/detectflash.c:134 src/flash/detectflash.c:166
 msgid "Page Write Command Set"
 msgstr "Sada príkazov Page Write"
 
-#: src/flash/detectflash.c:135 src/flash/detectflash.c:167
-#: src/flash/detectflash.c:225
+#: src/flash/detectflash.c:137 src/flash/detectflash.c:169
+#: src/flash/detectflash.c:227
 msgid "unknown!!!"
 msgstr "neznáma!!!"
 
-#: src/flash/detectflash.c:138
+#: src/flash/detectflash.c:140
 #, c-format
 msgid ""
 "\tPrimary Algorithm Command Set and Control Interface ID Code: 0x%04X (%s)\n"
@@ -2225,498 +2232,498 @@ msgstr ""
 "\tID kód sady príkazov a riadiaceho rozhrania primárneho algoritmu: 0x%04X "
 "(%s)\n"
 
-#: src/flash/detectflash.c:170
+#: src/flash/detectflash.c:172
 #, c-format
 msgid ""
 "\tAlternate Algorithm Command Set and Control Interface ID Code: 0x%04X "
 "(%s)\n"
 msgstr ""
-"\tID kód sady príkazov a riadiaceho rozhrania alternatívneho algoritmu: 0x"
-"%04X (%s)\n"
+"\tID kód sady príkazov a riadiaceho rozhrania alternatívneho algoritmu: "
+"0x%04X (%s)\n"
 
-#: src/flash/detectflash.c:174
+#: src/flash/detectflash.c:176
 msgid "Query system interface information:\n"
 msgstr "Informácie systémového rozhrania:\n"
 
-#: src/flash/detectflash.c:175
+#: src/flash/detectflash.c:177
 #, c-format
 msgid "\tVcc Logic Supply Minimum Write/Erase or Write voltage: %d mV\n"
 msgstr ""
 "\tVcc minimálne napäte zdroja logiky pre zápis/vymazávanie alebo zápis: %d "
 "mV\n"
 
-#: src/flash/detectflash.c:177
+#: src/flash/detectflash.c:179
 #, c-format
 msgid "\tVcc Logic Supply Maximum Write/Erase or Write voltage: %d mV\n"
 msgstr ""
 "\tVcc maximálne napätie zdroja logiky pre zápis/vymazávanie alebo zápis: %d "
 "mV\n"
 
-#: src/flash/detectflash.c:179
+#: src/flash/detectflash.c:181
 #, c-format
 msgid "\tVpp [Programming] Supply Minimum Write/Erase voltage: %d mV\n"
 msgstr ""
 "\tVpp [programovanie] minimálne napátie zdroja pre zápis/vymazanie: %d mV\n"
 
-#: src/flash/detectflash.c:181
+#: src/flash/detectflash.c:183
 #, c-format
 msgid "\tVpp [Programming] Supply Maximum Write/Erase voltage: %d mV\n"
 msgstr ""
 "\tVpp [programovanie] maximálne napätie zdroja pre zápis/programovanie: %d "
 "mV\n"
 
-#: src/flash/detectflash.c:183
+#: src/flash/detectflash.c:185
 #, c-format
 msgid "\tTypical timeout per single byte/word program: %d us\n"
 msgstr "\tTypický časový limit pre programovanie jedného bajtu/slova: %d µs\n"
 
-#: src/flash/detectflash.c:185
+#: src/flash/detectflash.c:187
 #, c-format
 msgid "\tTypical timeout for maximum-size multi-byte program: %d us\n"
 msgstr ""
 "\tTypický časový limit pre programovanie maximálnej viacbajtovej sekvencie: "
 "%d µs\n"
 
-#: src/flash/detectflash.c:187
+#: src/flash/detectflash.c:189
 #, c-format
 msgid "\tTypical timeout per individual block erase: %d ms\n"
 msgstr "\tTypický časový limit pre vymazanie jedného bloku: %d ms\n"
 
-#: src/flash/detectflash.c:189
+#: src/flash/detectflash.c:191
 #, c-format
 msgid "\tTypical timeout for full chip erase: %d ms\n"
 msgstr "\tTypický časový limit pre vymazanie celého čipu: %d ms\n"
 
-#: src/flash/detectflash.c:191
+#: src/flash/detectflash.c:193
 #, c-format
 msgid "\tMaximum timeout for byte/word program: %d us\n"
 msgstr "\tMaximálny časový limit pre programovanie bajtu/slova: %d µs\n"
 
-#: src/flash/detectflash.c:193
+#: src/flash/detectflash.c:195
 #, c-format
 msgid "\tMaximum timeout for multi-byte program: %d us\n"
 msgstr ""
 "\tMaximálny časový limit pre programovanie viacbajtovej sekvencie: %d µs\n"
 
-#: src/flash/detectflash.c:195
+#: src/flash/detectflash.c:197
 #, c-format
 msgid "\tMaximum timeout per individual block erase: %d ms\n"
 msgstr "\tMaximálny časový limit pre vymazanie jedného bloku: %d ms\n"
 
-#: src/flash/detectflash.c:197
+#: src/flash/detectflash.c:199
 #, c-format
 msgid "\tMaximum timeout for chip erase: %d ms\n"
 msgstr "\tMaximálny časový limit pre vymazanie čipu: %d ms\n"
 
-#: src/flash/detectflash.c:201
+#: src/flash/detectflash.c:203
 msgid "Device geometry definition:\n"
 msgstr "Definícia geometrie zariadenia:\n"
 
-#: src/flash/detectflash.c:202
+#: src/flash/detectflash.c:204
 #, c-format
 msgid "\tDevice Size: %d B (%d KiB, %d MiB)\n"
 msgstr "\tVeľkosť zariadenia: %d B (%d KiB, %d MiB)\n"
 
-#: src/flash/detectflash.c:210
+#: src/flash/detectflash.c:212
 msgid "x8"
 msgstr "x8"
 
-#: src/flash/detectflash.c:213
+#: src/flash/detectflash.c:215
 msgid "x16"
 msgstr "x16"
 
-#: src/flash/detectflash.c:216
+#: src/flash/detectflash.c:218
 msgid "x8/x16"
 msgstr "x8/x16"
 
-#: src/flash/detectflash.c:219
+#: src/flash/detectflash.c:221
 msgid "x32"
 msgstr "x32"
 
-#: src/flash/detectflash.c:222
+#: src/flash/detectflash.c:224
 msgid "x16/x32"
 msgstr "x16/x32"
 
-#: src/flash/detectflash.c:228
+#: src/flash/detectflash.c:230
 #, c-format
 msgid "\tFlash Device Interface Code description: 0x%04X (%s)\n"
 msgstr "\tPopisný kód rozhrania flash zariadenia: 0x%04X (%s)\n"
 
-#: src/flash/detectflash.c:230
+#: src/flash/detectflash.c:232
 #, c-format
 msgid "\tMaximum number of bytes in multi-byte program: %d\n"
 msgstr "\tMaximálny počet bajtov pri viacbajtovom programovaní: %d\n"
 
-#: src/flash/detectflash.c:232
+#: src/flash/detectflash.c:234
 #, c-format
 msgid "\tNumber of Erase Block Regions within device: %d\n"
 msgstr "\tPočet oblastí vymazávnia blokov v zariadení: %d\n"
 
-#: src/flash/detectflash.c:234
+#: src/flash/detectflash.c:236
 msgid "\tErase Block Region Information:\n"
 msgstr "\tInformácie o oblasti vymazávania blokov:\n"
 
-#: src/flash/detectflash.c:240
+#: src/flash/detectflash.c:242
 #, c-format
 msgid "\t\tRegion %d:\n"
 msgstr "\t\tOblasť %d:\n"
 
-#: src/flash/detectflash.c:241
+#: src/flash/detectflash.c:243
 #, c-format
 msgid "\t\t\tErase Block Size: %d B (%d KiB)\n"
 msgstr "\t\t\tVeľkosť vymazávacieho bloku: %d B (%d KiB)\n"
 
-#: src/flash/detectflash.c:246
+#: src/flash/detectflash.c:248
 #, c-format
 msgid "\t\t\tNumber of Erase Blocks: %d\n"
 msgstr "\t\t\tPočet vymazávacích blokov: %d\n"
 
-#: src/flash/detectflash.c:260
+#: src/flash/detectflash.c:262
 msgid "Required"
 msgstr ""
 
-#: src/flash/detectflash.c:260
+#: src/flash/detectflash.c:262
 msgid "Not required"
 msgstr ""
 
-#: src/flash/detectflash.c:263
+#: src/flash/detectflash.c:265
 msgid "Supported"
 msgstr ""
 
-#: src/flash/detectflash.c:263 src/flash/detectflash.c:277
-#: src/flash/detectflash.c:288
+#: src/flash/detectflash.c:265 src/flash/detectflash.c:279
+#: src/flash/detectflash.c:290
 #, fuzzy
 msgid "Not supported"
 msgstr "Nepodporovaná flash pamäť!\n"
 
-#: src/flash/detectflash.c:266
+#: src/flash/detectflash.c:268
 msgid "170-nm Floating Gate technology"
 msgstr ""
 
-#: src/flash/detectflash.c:267
+#: src/flash/detectflash.c:269
 msgid "230-nm MirrorBit(tm) technology"
 msgstr ""
 
-#: src/flash/detectflash.c:268
+#: src/flash/detectflash.c:270
 msgid "130-nm Floating Gate technology"
 msgstr ""
 
-#: src/flash/detectflash.c:269
+#: src/flash/detectflash.c:271
 msgid "110-nm MirrorBit(tm) technology"
 msgstr ""
 
-#: src/flash/detectflash.c:270
+#: src/flash/detectflash.c:272
 msgid "90-nm Floating Gate technology"
 msgstr ""
 
-#: src/flash/detectflash.c:271
+#: src/flash/detectflash.c:273
 msgid "90-nm MirrorBit(tm) technology"
 msgstr ""
 
-#: src/flash/detectflash.c:274
+#: src/flash/detectflash.c:276
 msgid "CS49"
 msgstr ""
 
-#: src/flash/detectflash.c:274
+#: src/flash/detectflash.c:276
 msgid "CS59"
 msgstr ""
 
-#: src/flash/detectflash.c:274
+#: src/flash/detectflash.c:276
 msgid "CS99"
 msgstr ""
 
-#: src/flash/detectflash.c:277
+#: src/flash/detectflash.c:279
 msgid "Read only"
 msgstr ""
 
-#: src/flash/detectflash.c:277
+#: src/flash/detectflash.c:279
 msgid "Read/write"
 msgstr ""
 
-#: src/flash/detectflash.c:280
+#: src/flash/detectflash.c:282
 msgid "29F040 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:280
+#: src/flash/detectflash.c:282
 msgid "29F016 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:280
+#: src/flash/detectflash.c:282
 msgid "29F400 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:281
+#: src/flash/detectflash.c:283
 #, fuzzy
 msgid "29LV800 mode"
 msgstr "Am29LV800B"
 
-#: src/flash/detectflash.c:282
+#: src/flash/detectflash.c:284
 msgid "29BDS640 mode (Software Command Locking)"
 msgstr ""
 
-#: src/flash/detectflash.c:283
+#: src/flash/detectflash.c:285
 msgid "29BDD160 mode (New Sector Protect)"
 msgstr ""
 
-#: src/flash/detectflash.c:284
+#: src/flash/detectflash.c:286
 msgid "29PDL128 mode (New Sector Protect + 29LV800)"
 msgstr ""
 
-#: src/flash/detectflash.c:285
+#: src/flash/detectflash.c:287
 msgid "Advanced Sector Protect"
 msgstr ""
 
-#: src/flash/detectflash.c:288
+#: src/flash/detectflash.c:290
 msgid "4 word Page"
 msgstr ""
 
-#: src/flash/detectflash.c:288
+#: src/flash/detectflash.c:290
 msgid "8 word Page"
 msgstr ""
 
-#: src/flash/detectflash.c:289
+#: src/flash/detectflash.c:291
 msgid "16 word Page"
 msgstr ""
 
-#: src/flash/detectflash.c:293
+#: src/flash/detectflash.c:295
 msgid "No boot"
 msgstr ""
 
-#: src/flash/detectflash.c:294
+#: src/flash/detectflash.c:296
 msgid "8x8kb sectors at top and bottom with WP control"
 msgstr ""
 
-#: src/flash/detectflash.c:295
+#: src/flash/detectflash.c:297
 msgid "Bottom boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:295
+#: src/flash/detectflash.c:297
 msgid "Top boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:296
+#: src/flash/detectflash.c:298
 msgid "Uniform bottom boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:296
+#: src/flash/detectflash.c:298
 msgid "Uniform top boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:298
+#: src/flash/detectflash.c:300
 msgid "Bad value"
 msgstr ""
 
-#: src/flash/detectflash.c:304
+#: src/flash/detectflash.c:306
 msgid "Primary Vendor-Specific Extended Query:\n"
-msgstr ""
-
-#: src/flash/detectflash.c:305
-#, c-format
-msgid "\tMajor version number: %c\n"
 msgstr ""
 
 #: src/flash/detectflash.c:307
 #, c-format
+msgid "\tMajor version number: %c\n"
+msgstr ""
+
+#: src/flash/detectflash.c:309
+#, c-format
 msgid "\tMinor version number: %c\n"
 msgstr ""
 
-#: src/flash/detectflash.c:314 src/flash/detectflash.c:318
+#: src/flash/detectflash.c:316 src/flash/detectflash.c:320
 #, c-format
 msgid "\tAddress Sensitive Unlock: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:325 src/flash/detectflash.c:330
-#: src/flash/detectflash.c:336 src/flash/detectflash.c:341
+#: src/flash/detectflash.c:327 src/flash/detectflash.c:332
+#: src/flash/detectflash.c:338 src/flash/detectflash.c:343
 #, c-format
 msgid "\tProcess Technology: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:344
+#: src/flash/detectflash.c:346
 #, c-format
 msgid "\tErase Suspend: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:347
+#: src/flash/detectflash.c:349
 #, fuzzy
 msgid "\tSector Protect: Not supported\n"
 msgstr "Nepodporovaná flash pamäť!\n"
 
-#: src/flash/detectflash.c:349
+#: src/flash/detectflash.c:351
 #, c-format
 msgid "\tSector Protect: %d sectors per group\n"
 msgstr ""
 
-#: src/flash/detectflash.c:353 src/flash/detectflash.c:357
+#: src/flash/detectflash.c:355 src/flash/detectflash.c:359
 #, c-format
 msgid "\tSector Temporary Unprotect: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:361 src/flash/detectflash.c:365
+#: src/flash/detectflash.c:363 src/flash/detectflash.c:367
 #, c-format
 msgid "\tSector Protect/Unprotect Scheme: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:368
+#: src/flash/detectflash.c:370
 #, fuzzy
 msgid "\tSimultaneous Operation: Not supported\n"
 msgstr "Nepodporovaná flash pamäť!\n"
 
-#: src/flash/detectflash.c:370
+#: src/flash/detectflash.c:372
 #, c-format
 msgid "\tSimultaneous Operation: %d sectors\n"
 msgstr ""
 
-#: src/flash/detectflash.c:374 src/flash/detectflash.c:377
+#: src/flash/detectflash.c:376 src/flash/detectflash.c:379
 #, c-format
 msgid "\tBurst Mode Type: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:380 src/flash/detectflash.c:383
+#: src/flash/detectflash.c:382 src/flash/detectflash.c:385
 #, c-format
 msgid "\tPage Mode Type: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:389
+#: src/flash/detectflash.c:391
 #, c-format
 msgid "\tACC (Acceleration) Supply Minimum: %d mV\n"
 msgstr ""
 
-#: src/flash/detectflash.c:391
+#: src/flash/detectflash.c:393
 #, c-format
 msgid "\tACC (Acceleration) Supply Maximum: %d mV\n"
 msgstr ""
 
-#: src/flash/detectflash.c:395 src/flash/detectflash.c:398
+#: src/flash/detectflash.c:397 src/flash/detectflash.c:400
 #, c-format
 msgid "\tTop/Bottom Sector Flag: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:405 src/flash/detectflash.c:408
+#: src/flash/detectflash.c:407 src/flash/detectflash.c:410
 #, c-format
 msgid "\tProgram Suspend: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:415 src/flash/detectflash.c:418
+#: src/flash/detectflash.c:417 src/flash/detectflash.c:420
 #, c-format
 msgid "\tUnlock Bypass: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:419
+#: src/flash/detectflash.c:421
 #, c-format
 msgid "\tSecSi Sector (Customer OTP Area) Size: %d bytes\n"
 msgstr ""
 
-#: src/flash/detectflash.c:421
+#: src/flash/detectflash.c:423
 #, c-format
 msgid "\tEmbedded Hardware Reset Timeout Maximum: %d ns\n"
 msgstr ""
 
-#: src/flash/detectflash.c:423
+#: src/flash/detectflash.c:425
 #, c-format
 msgid "\tNon-Embedded Hardware Reset Timeout Maximum: %d ns\n"
 msgstr ""
 
-#: src/flash/detectflash.c:425
+#: src/flash/detectflash.c:427
 #, c-format
 msgid "\tErase Suspend Timeout Maximum: %d us\n"
 msgstr ""
 
-#: src/flash/detectflash.c:427
+#: src/flash/detectflash.c:429
 #, c-format
 msgid "\tProgram Suspend Timeout Maximum: %d us\n"
 msgstr ""
 
-#: src/flash/detectflash.c:434
+#: src/flash/detectflash.c:436
 msgid "\tBank Organization:\n"
 msgstr ""
 
-#: src/flash/detectflash.c:436
+#: src/flash/detectflash.c:438
 #, c-format
 msgid "\t\tBank%d: %d sectors\n"
 msgstr ""
 
-#: src/flash/flash.c:92
+#: src/flash/flash.c:95
 #, c-format
 msgid "unknown flash - vendor id: %d (0x%04x)\n"
 msgstr "neznáma flash pamäť - id dodávateľa: %d (0x%04x)\n"
 
-#: src/flash/flash.c:96
+#: src/flash/flash.c:99
 #, fuzzy
 msgid "Flash not supported"
 msgstr "Nepodporovaná flash pamäť!\n"
 
-#: src/flash/flash.c:105
+#: src/flash/flash.c:108
 msgid "fread() was short"
 msgstr ""
 
-#: src/flash/flash.c:119 src/flash/flash.c:315 src/flash/flash.c:488
-#: src/flash/flash.c:569
+#: src/flash/flash.c:122 src/flash/flash.c:321 src/flash/flash.c:494
+#: src/flash/flash.c:575
 #, fuzzy
 msgid "no flash driver found"
 msgstr "ovládač pre flash pamäť nebol nájdený\n"
 
-#: src/flash/flash.c:132
+#: src/flash/flash.c:135
 #, fuzzy
 msgid "Invalid sync sequence"
 msgstr "Neplatná synchronizačná sekvencia!\n"
 
-#: src/flash/flash.c:156
+#: src/flash/flash.c:159
 #, c-format
 msgid "block %d unlocked\n"
 msgstr "blok %d odomknutý\n"
 
-#: src/flash/flash.c:159 src/flash/flash.c:366
+#: src/flash/flash.c:162 src/flash/flash.c:372
 #, c-format
 msgid "erasing block %d: %d\n"
 msgstr "vymazávam blok %d: %d\n"
 
-#: src/flash/flash.c:164 src/flash/flash.c:338
+#: src/flash/flash.c:167 src/flash/flash.c:344
 msgid "program:\n"
 msgstr "programovanie:\n"
 
-#: src/flash/flash.c:174 src/flash/flash.c:226
+#: src/flash/flash.c:177 src/flash/flash.c:229
 #, fuzzy
 msgid "premature end of file"
 msgstr "Chyba: neočakávaný koniec súboru\n"
 
-#: src/flash/flash.c:178 src/flash/flash.c:230
+#: src/flash/flash.c:181 src/flash/flash.c:233
 #, fuzzy, c-format
 msgid "record: start = 0x%08lX, len = 0x%08lX, checksum = 0x%08lX\n"
 msgstr "záznam: začiatok = 0x%08X, dĺžka = 0x%08X, kontrolná suma = 0x%08X\n"
 
-#: src/flash/flash.c:184 src/flash/flash.c:236
+#: src/flash/flash.c:187 src/flash/flash.c:239
 #, fuzzy
 msgid "Invalid record length"
 msgstr "Chyba: Neplatná dĺžka záznamu!\n"
 
-#: src/flash/flash.c:192 src/flash/flash.c:244 src/flash/flash.c:376
-#: src/flash/flash.c:438
+#: src/flash/flash.c:195 src/flash/flash.c:247 src/flash/flash.c:382
+#: src/flash/flash.c:444
 #, fuzzy, c-format
 msgid "addr: 0x%08lX"
 msgstr "adresa: 0x%08X"
 
-#: src/flash/flash.c:210 src/flash/flash.c:412
+#: src/flash/flash.c:213 src/flash/flash.c:418
 #, fuzzy
 msgid "verify skipped\n"
 msgstr "kontrola:\n"
 
-#: src/flash/flash.c:215 src/flash/flash.c:417
+#: src/flash/flash.c:218 src/flash/flash.c:423
 msgid "verify:\n"
 msgstr "kontrola:\n"
 
-#: src/flash/flash.c:252
+#: src/flash/flash.c:255
 #, fuzzy, c-format
 msgid "verify error: 0x%08lX vs. 0x%08lX at addr %08lX"
 msgstr ""
 "\n"
 "chyba pri kontrole: 0x%08X vs. 0x%08X na adrese %08X\n"
 
-#: src/flash/flash.c:331
+#: src/flash/flash.c:337
 #, c-format
 msgid "malloc(%zd) failed"
 msgstr ""
 
-#: src/flash/flash.c:362
+#: src/flash/flash.c:368
 #, c-format
 msgid ""
 "\n"
@@ -2725,12 +2732,12 @@ msgstr ""
 "\n"
 "blok %d odomknutý\n"
 
-#: src/flash/flash.c:405
+#: src/flash/flash.c:411
 #, fuzzy, c-format
 msgid "addr: 0x%08lX\n"
 msgstr "adresa: 0x%08X"
 
-#: src/flash/flash.c:457
+#: src/flash/flash.c:463
 #, fuzzy, c-format
 msgid ""
 "addr: 0x%08lX\n"
@@ -2743,84 +2750,84 @@ msgstr ""
 "načítané: 0x%08X\n"
 "očakávané: 0x%08X\n"
 
-#: src/flash/flash.c:470
+#: src/flash/flash.c:476
 #, fuzzy, c-format
 msgid ""
 "addr: 0x%08lX\n"
 "Done.\n"
 msgstr "adresa: 0x%08X"
 
-#: src/flash/flash.c:497
+#: src/flash/flash.c:503
 #, c-format
 msgid ""
 "\n"
 "Erasing %d Flash block%s from address 0x%lx\n"
 msgstr ""
 
-#: src/flash/flash.c:515
+#: src/flash/flash.c:521
 #, c-format
 msgid "(%d%% Completed) FLASH Block %d : Unlocking ... "
 msgstr ""
 
-#: src/flash/flash.c:518
+#: src/flash/flash.c:524
 msgid "Erasing ... "
 msgstr ""
 
-#: src/flash/flash.c:526
+#: src/flash/flash.c:532
 #, c-format
 msgid "(100%% Completed) FLASH Block %d : Unlocking ... Erasing ... Ok.\n"
 msgstr ""
 
-#: src/flash/flash.c:531 src/flash/flash.c:622
+#: src/flash/flash.c:537 src/flash/flash.c:628
 msgid "Ok."
 msgstr ""
 
-#: src/flash/flash.c:533 src/flash/flash.c:624
+#: src/flash/flash.c:539 src/flash/flash.c:630
 #, c-format
 msgid "%78s"
 msgstr ""
 
-#: src/flash/flash.c:539 src/flash/flash.c:630
+#: src/flash/flash.c:545 src/flash/flash.c:636
 msgid "ERROR.\n"
 msgstr ""
 
-#: src/flash/flash.c:546
+#: src/flash/flash.c:552
 msgid ""
 "\n"
 "Erasing Completed.\n"
 msgstr ""
 
-#: src/flash/flash.c:548
+#: src/flash/flash.c:554
 msgid ""
 "\n"
 "Erasing (partially) Failed.\n"
 msgstr ""
 
-#: src/flash/flash.c:578
+#: src/flash/flash.c:584
 #, c-format
 msgid ""
 "\n"
 "%s %d Flash block%s from address 0x%lx\n"
 msgstr ""
 
-#: src/flash/flash.c:600
+#: src/flash/flash.c:606
 #, c-format
 msgid "(%d%% Completed) FLASH Block %d : %s ... "
 msgstr ""
 
-#: src/flash/flash.c:615
+#: src/flash/flash.c:621
 #, c-format
 msgid "(100%% Completed) FLASH Block %d : %s ... Ok.\n"
 msgstr ""
 
-#: src/flash/flash.c:637
+#: src/flash/flash.c:643
 #, c-format
 msgid ""
 "\n"
 "%s Completed.\n"
 msgstr ""
 
-#: src/flash/flash.c:640
+#: src/flash/flash.c:646
 #, c-format
 msgid ""
 "\n"
@@ -2841,55 +2848,55 @@ msgstr "Neznámy výrobva (0x%04X)!\n"
 msgid "Chip: "
 msgstr "Čip: "
 
-#: src/flash/intel.c:197
+#: src/flash/intel.c:215
 #, fuzzy, c-format
 msgid "Unknown (0x%02lX)!\n"
 msgstr "Neznámy (0x%02X)!\n"
 
-#: src/flash/intel.c:258
+#: src/flash/intel.c:276
 #, fuzzy
 msgid "invalid command seq"
 msgstr "flash: neplatná sekvencia príkazov\n"
 
-#: src/flash/intel.c:261
+#: src/flash/intel.c:279
 #, fuzzy
 msgid "low vpen"
 msgstr "flash: nízke vpen\n"
 
-#: src/flash/intel.c:264
+#: src/flash/intel.c:282
 #, fuzzy
 msgid "block locked"
 msgstr "blok %d odomknutý\n"
 
-#: src/flash/intel.c:290
+#: src/flash/intel.c:308
 #, fuzzy
 msgid "unknown error while unlocking block"
 msgstr "flash: neznáma chyba pri odblokovaní\n"
 
-#: src/flash/intel.c:313
+#: src/flash/intel.c:331
 #, fuzzy
 msgid "unknown error while locking block"
 msgstr "flash: neznáma chyba pri odblokovaní\n"
 
-#: src/flash/intel.c:323
+#: src/flash/intel.c:341
 #, fuzzy
 msgid "locking block failed"
 msgstr "blok %d odomknutý\n"
 
-#: src/flash/intel.c:347 src/flash/intel.c:407
+#: src/flash/intel.c:365 src/flash/intel.c:425
 #, fuzzy
 msgid "unknown error while programming"
 msgstr "flash: neznáma chyba pri programovaní\n"
 
-#: src/flash/intel.c:576
+#: src/flash/intel.c:594
 msgid "supported: 28Fxxxx, 2 x 16 bit"
 msgstr "podporované: 28Fxxxx, 2 x 16 bitov"
 
-#: src/flash/intel.c:589
+#: src/flash/intel.c:607
 msgid "supported: 28Fxxxx, 1 x 16 bit"
 msgstr "podporované: 28Fxxxx, 1 x 16 bitov"
 
-#: src/flash/intel.c:602
+#: src/flash/intel.c:620
 msgid "supported: 28Fxxxx, 1 x 8 bit"
 msgstr "podporované: 28Fxxxx, 1 x 8 bitov"
 
@@ -2928,41 +2935,41 @@ msgstr "Dátový register '%s' je už definovaný\n"
 msgid "Instruction name too long\n"
 msgstr "Upozornenie: Názov inštrukcie je príliš dlhý\n"
 
-#: src/part/part.c:238
+#: src/part/part.c:246
 #, fuzzy, c-format
 msgid "signal '%s' cannot be set as output"
 msgstr "signál '%s' nemôže byť nastavený ako výstup\n"
 
-#: src/part/part.c:253
+#: src/part/part.c:261
 #, fuzzy, c-format
 msgid "signal '%s' cannot be set as input"
 msgstr "signál '%s' nemôže byť nastavený ako vstup\n"
 
-#: src/part/part.c:287
+#: src/part/part.c:295
 #, fuzzy, c-format
 msgid "signal '%s' is not input signal"
 msgstr "signál '%s' nie je vstupný\n"
 
-#: src/part/part.c:307
+#: src/part/part.c:315
 #, c-format
 msgid "%%-%ds %%-%ds %%-%ds %%-%ds %%-%ds\n"
 msgstr "%%-%ds %%-%ds %%-%ds %%-%ds %%-%ds\n"
 
-#: src/part/part.c:319 src/part/part.c:321
+#: src/part/part.c:327 src/part/part.c:329
 msgid "(none)"
 msgstr "(nič)"
 
-#: src/part/part.c:335
+#: src/part/part.c:343
 #, fuzzy
 msgid "instruction length is already set and used"
 msgstr "dĺžka inštrukcie je už nastavená a používaná\n"
 
-#: src/part/part.c:362
+#: src/part/part.c:370
 #, fuzzy, c-format
 msgid "Instruction '%s' already defined"
 msgstr "Inštrukcia '%s' je už definovaná\n"
 
-#: src/part/part.c:370
+#: src/part/part.c:378
 #, fuzzy, c-format
 msgid "unknown data register '%s'"
 msgstr "neznámy dátový register '%s'\n"
@@ -3073,12 +3080,12 @@ msgstr ""
 msgid "Scanned device output matched expected TDO values.\n"
 msgstr ""
 
-#: src/svf/svf_flex.l:404
+#: src/svf/svf_flex.l:406
 #, c-format
 msgid "Parsing %6d/%d (%3.0d%%)"
 msgstr ""
 
-#: src/svf/svf_flex.l:424 src/tap/cable/ft2232.c:2503
+#: src/svf/svf_flex.l:426 src/tap/cable/ft2232.c:2610
 #: src/tap/cable/generic_parport.c:89 src/tap/cable/generic_usbconn.c:156
 #: src/tap/cable/jim.c:71 src/tap/cable/ts7800.c:170
 #: src/tap/cable/usbblaster.c:79 src/tap/cable/vision_ep9307.c:214
@@ -3138,97 +3145,113 @@ msgstr "JTAG kábel ETC EA253"
 msgid "ETC EI012 JTAG Cable"
 msgstr "JTAG kábel ETC EI012"
 
-#: src/tap/cable/ft2232.c:354
+#: src/tap/cable/ft2232.c:368
 #, c-format
 msgid "Warning: Setting lowest supported frequency for FT2232%s: %d\n"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:934
+#: src/tap/cable/ft2232.c:952
 msgid "Please power on the TARGET board and connect VCC signal"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:1065
+#: src/tap/cable/ft2232.c:1083
 msgid "Vref not detected. Please power on Milkymist One"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:1293
+#: src/tap/cable/ft2232.c:1359
 msgid "JTAGv5: Power of target not detected. Please power on target device."
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2576
+#: src/tap/cable/ft2232.c:2683
 msgid "Generic FTDI FT2232 Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2596
-msgid "Olimex ARM-USB-OCD[-TINY] (FT2232) Cable"
+#: src/tap/cable/ft2232.c:2703
+msgid "Olimex ARM-USB-OCD (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2617
+#: src/tap/cable/ft2232.c:2723
+msgid "Olimex ARM-USB-OCD-TINY (FT2232) Cable"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:2743
 msgid "Olimex ARM-USB-TINY-H (FT2232H) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2638
+#: src/tap/cable/ft2232.c:2763
+msgid "Olimex ARM-USB-OCD-H (FT2232H) Cable"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:2783
 msgid "Analog Devices Blackfin gnICE (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2658
+#: src/tap/cable/ft2232.c:2803
 msgid "Analog Devices Blackfin gnICE+ (FT2232H) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2678
+#: src/tap/cable/ft2232.c:2823
 msgid "Amontec JTAGkey (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2698
+#: src/tap/cable/ft2232.c:2843
 msgid "OOCDLink-s (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2718
+#: src/tap/cable/ft2232.c:2863
 msgid "Turtelizer 2 Rev. B (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2738
+#: src/tap/cable/ft2232.c:2883
 msgid "USB<=>JTAG&RS232 (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2758
+#: src/tap/cable/ft2232.c:2903
 msgid "USB to JTAG Interface (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2778
+#: src/tap/cable/ft2232.c:2923
 msgid "Xverve DT-USB-ST Signalyzer Tool (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2798
+#: src/tap/cable/ft2232.c:2943
 msgid "TinCanTools Flyswatter (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2818
+#: src/tap/cable/ft2232.c:2963
 msgid "KrisTech usbScarabeus2 (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2838
+#: src/tap/cable/ft2232.c:2983
 msgid "KrisTech KT-LINK (FT2232H based) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2858
+#: src/tap/cable/ft2232.c:3003
 msgid "Milkymist JTAG/serial (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2878
+#: src/tap/cable/ft2232.c:3023
 msgid "Digilent HS1 Adapter"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2898
+#: src/tap/cable/ft2232.c:3043
+msgid "Digilent HS2 Adapter"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:3063
 msgid "Generic FTDI FT4232 Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2918
+#: src/tap/cable/ft2232.c:3083
 msgid "XDS100 compatible JTAG/serial (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2938
+#: src/tap/cable/ft2232.c:3103
 msgid "XDS100v2 compatible JTAG/serial (FT2232H) Cable"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:3123
+msgid "Digilent HS3 Adapter"
 msgstr ""
 
 #: src/tap/cable/generic.c:104

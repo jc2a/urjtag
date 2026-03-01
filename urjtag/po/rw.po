@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jtag 0.5.1\n"
 "Report-Msgid-Bugs-To: marcel@telka.sk\n"
-"POT-Creation-Date: 2021-03-21 20:46+0100\n"
+"POT-Creation-Date: 2026-02-28 20:13-0500\n"
 "PO-Revision-Date: 2005-04-04 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -232,12 +232,12 @@ msgstr ""
 msgid "BSDL file '%s' contains errors in VHDL stage, stopping\n"
 msgstr ""
 
-#: src/bsdl/bsdl.c:293 src/tap/detect.c:418
+#: src/bsdl/bsdl.c:295 src/tap/detect.c:418
 #, fuzzy, c-format
 msgid "  Filename:     %s\n"
 msgstr "Izina ry'idosiye:"
 
-#: src/bsdl/bsdl.c:305
+#: src/bsdl/bsdl.c:307
 #, fuzzy, c-format
 msgid "Cannot open directory %s\n"
 msgstr "Gufungura"
@@ -516,14 +516,14 @@ msgstr "Musomyi: Biturutse"
 msgid "Broadcom BCM1250 compatible bus driver via BSR"
 msgstr "Musomyi: Biturutse"
 
-#: src/bus/bscoach.c:135
+#: src/bus/bscoach.c:210
 #, fuzzy, c-format
 msgid ""
 "Goepel electronic Boundary Scan Coach compatible bus driver via BSR (JTAG "
 "part No. %d)\n"
 msgstr "Musomyi: Biturutse"
 
-#: src/bus/bscoach.c:376
+#: src/bus/bscoach.c:446
 msgid ""
 "Goepel Boundary Scan Coach compatible bus driver for flash programming via "
 "BSR"
@@ -591,7 +591,7 @@ msgstr ""
 msgid "EJTAG compatible bus driver via PrAcc"
 msgstr "Musomyi: Biturutse"
 
-#: src/bus/fjmem.c:104 src/part/part.c:355
+#: src/bus/fjmem.c:104 src/part/part.c:363
 #, fuzzy
 msgid "invalid instruction length"
 msgstr "Sibyo"
@@ -776,48 +776,48 @@ msgstr "Musomyi: Biturutse"
 msgid "IBM PowerPC 440GX 8-bit EBC compatible bus driver via BSR"
 msgstr "Musomyi: Biturutse"
 
-#: src/bus/prototype.c:131
+#: src/bus/prototype.c:132
 #, c-format
 msgid "value %lu not defined for parameter %s"
 msgstr ""
 
-#: src/bus/prototype.c:164 src/cmd/cmd_get.c:71 src/cmd/cmd_set.c:98
+#: src/bus/prototype.c:165 src/cmd/cmd_get.c:71 src/cmd/cmd_set.c:98
 #: src/cmd/cmd_test.c:75
 #, fuzzy, c-format
 msgid "signal '%s' not found"
 msgstr "OYA"
 
-#: src/bus/prototype.c:208
+#: src/bus/prototype.c:209
 #, c-format
 msgid "parameter %s is unknown"
 msgstr ""
 
-#: src/bus/prototype.c:252
+#: src/bus/prototype.c:253
 msgid "parameters alsb=<signal> and/or amsb=<signal> are not defined"
 msgstr ""
 
-#: src/bus/prototype.c:312
+#: src/bus/prototype.c:313
 msgid "parameters dlsb=<signal> and/or dmsb=<signal> are not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:319
+#: src/bus/prototype.c:320
 msgid "parameter cs=<signal> or ncs=<signal> is not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:326
+#: src/bus/prototype.c:327
 msgid "parameter oe=<signal> or noe=<signal> is not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:333
+#: src/bus/prototype.c:334
 msgid "parameter we=<signal> or nwe=<signal> is not defined\n"
 msgstr ""
 
-#: src/bus/prototype.c:359
+#: src/bus/prototype.c:360
 #, fuzzy, c-format
 msgid "Configurable prototype bus driver via BSR (JTAG part No. %d)\n"
 msgstr "Musomyi: Biturutse"
 
-#: src/bus/prototype.c:515
+#: src/bus/prototype.c:516
 msgid ""
 "Configurable prototype bus driver via BSR, requires parameters:\n"
 "           amsb=<addr MSB> alsb=<addr LSB> dmsb=<data MSB> dlsb=<data LSB>\n"
@@ -891,7 +891,7 @@ msgstr ""
 msgid "addr: 0x%08llX\r"
 msgstr "Aderesi"
 
-#: src/bus/readmem.c:131 src/bus/writemem.c:143 src/flash/flash.c:262
+#: src/bus/readmem.c:131 src/bus/writemem.c:143 src/flash/flash.c:265
 #, fuzzy
 msgid ""
 "\n"
@@ -901,8 +901,8 @@ msgstr "Byakozwe."
 #: src/bus/s3c4510x.c:177
 #, fuzzy, c-format
 msgid ""
-"Samsung S3C4510B compatibile bus driver via BSR (JTAG part No. %d) RCS0="
-"%ubit\n"
+"Samsung S3C4510B compatibile bus driver via BSR (JTAG part No. %d) "
+"RCS0=%ubit\n"
 msgstr "Musomyi: Biturutse"
 
 #: src/bus/s3c4510x.c:425
@@ -1795,7 +1795,7 @@ msgstr "Gishya Na: Izina: kugirango a Bya kugirango a OYA"
 msgid "define an alias for a signal"
 msgstr "Kugaragaza... Gishya kugirango a"
 
-#: src/cmd/cmd_scan.c:71 src/part/part.c:227 src/part/part.c:280
+#: src/cmd/cmd_scan.c:71 src/part/part.c:235 src/part/part.c:288
 #, fuzzy
 msgid "Boundary Scan Register (BSR) not found"
 msgstr "%s(%s:%d)OYA"
@@ -1840,7 +1840,7 @@ msgstr ""
 msgid "set external signal value"
 msgstr "Gushyiraho external Agaciro"
 
-#: src/cmd/cmd_shell.c:104
+#: src/cmd/cmd_shell.c:105
 #, c-format
 msgid ""
 "Usage: %s CMD\n"
@@ -1849,7 +1849,7 @@ msgid ""
 "CMD OS Shell Command\n"
 msgstr ""
 
-#: src/cmd/cmd_shell.c:112
+#: src/cmd/cmd_shell.c:113
 msgid "run a shell command"
 msgstr ""
 
@@ -1953,52 +1953,59 @@ msgstr ""
 msgid "write content of file to the memory"
 msgstr ""
 
-#: src/flash/amd.c:311
+#: src/flash/amd.c:312
 msgid ""
 "Chip: AMD Flash\n"
 "\tManufacturer: "
 msgstr ""
 
-#: src/flash/amd.c:316 src/flash/amd.c:345 src/flash/amd.c:367
-#: src/flash/amd.c:386 src/flash/amd.c:408 src/flash/amd_flash.c:269
+#: src/flash/amd.c:317 src/flash/amd.c:346 src/flash/amd.c:368
+#: src/flash/amd.c:387 src/flash/amd.c:428 src/flash/amd.c:450
+#: src/flash/amd_flash.c:269
 msgid ""
 "\n"
 "\tChip: "
 msgstr ""
 
-#: src/flash/amd.c:339 src/flash/amd.c:361 src/flash/amd.c:380
-#: src/flash/amd.c:402 src/flash/amd.c:415 src/flash/amd_flash.c:281
+#: src/flash/amd.c:340 src/flash/amd.c:362 src/flash/amd.c:381
+#: src/flash/amd.c:422 src/flash/amd.c:444 src/flash/amd.c:457
+#: src/flash/amd_flash.c:281
 #, c-format
 msgid "Unknown (ID 0x%04x)"
 msgstr ""
 
-#: src/flash/amd.c:420
+#: src/flash/amd.c:417
+#, fuzzy, c-format
+msgid "Unknown MT28EW variant (ID 0x%04x)"
+msgstr "Ukora mu nganda"
+
+#: src/flash/amd.c:462
 #, fuzzy, c-format
 msgid "Unknown manufacturer (ID 0x%04x) Chip (ID 0x%04x)"
 msgstr "Ukora mu nganda"
 
 # sc/source\ui\src\attrdlg.src:RID_SCPAGE_PROTECTION.BTN_PROTECTED.text
-#: src/flash/amd.c:424 src/flash/amd_flash.c:284
+#: src/flash/amd.c:466 src/flash/amd_flash.c:284
 #, fuzzy, c-format
 msgid ""
 "\n"
 "\tProtected: %04x\n"
 msgstr "Birinzwe"
 
-#: src/flash/amd.c:660 src/flash/amd.c:673 src/flash/amd.c:686
-#: src/flash/detectflash.c:117 src/flash/detectflash.c:149
+#: src/flash/amd.c:703 src/flash/amd.c:716 src/flash/amd.c:729
+#: src/flash/detectflash.c:119 src/flash/detectflash.c:151
 msgid "AMD/Fujitsu Standard Command Set"
 msgstr ""
 
-#: src/flash/amd.c:661
+#: src/flash/amd.c:704
 msgid "supported: AMD 29LV640D, 29LV641D, 29LV642D; 2x16 Bit"
 msgstr ""
 
-#: src/flash/amd.c:674
+#: src/flash/amd.c:717
 msgid "supported: AMD 29LV800B, S29GLxxxN; MX29LV640B, W19B320AT/B; 1x16 Bit"
 msgstr ""
 
-#: src/flash/amd.c:687
+#: src/flash/amd.c:730
 msgid ""
 "supported: AMD 29LV160, AMD 29LV065D, AMD 29LV040B, S29GLxxxN, W19B320AT/B; "
 "1x8 Bit"
@@ -2031,554 +2038,554 @@ msgstr ""
 msgid "supported: AMD 29LV040B, 29C040B, 1x8 Bit"
 msgstr ""
 
-#: src/flash/detectflash.c:75
+#: src/flash/detectflash.c:77
 msgid "bus driver"
 msgstr ""
 
-#: src/flash/detectflash.c:97
+#: src/flash/detectflash.c:99
 #, fuzzy
 msgid "Flash not found"
 msgstr "OYA Byabonetse"
 
-#: src/flash/detectflash.c:106
+#: src/flash/detectflash.c:108
 #, fuzzy
 msgid "Query identification string:\n"
 msgstr "irangamimerere Ikurikiranyanyuguti"
 
-#: src/flash/detectflash.c:111 src/flash/detectflash.c:143
+#: src/flash/detectflash.c:113 src/flash/detectflash.c:145
 #, fuzzy
 msgid "null"
 msgstr "NTAGIHARI"
 
-#: src/flash/detectflash.c:114 src/flash/detectflash.c:146
+#: src/flash/detectflash.c:116 src/flash/detectflash.c:148
 msgid "Intel/Sharp Extended Command Set"
 msgstr ""
 
-#: src/flash/detectflash.c:120 src/flash/detectflash.c:152
-#: src/flash/intel.c:575 src/flash/intel.c:588 src/flash/intel.c:601
+#: src/flash/detectflash.c:122 src/flash/detectflash.c:154
+#: src/flash/intel.c:593 src/flash/intel.c:606 src/flash/intel.c:619
 msgid "Intel Standard Command Set"
 msgstr ""
 
-#: src/flash/detectflash.c:123 src/flash/detectflash.c:155
+#: src/flash/detectflash.c:125 src/flash/detectflash.c:157
 msgid "AMD/Fujitsu Extended Command Set"
 msgstr ""
 
-#: src/flash/detectflash.c:126 src/flash/detectflash.c:158
+#: src/flash/detectflash.c:128 src/flash/detectflash.c:160
 msgid "Mitsubishi Standard Command Set"
 msgstr ""
 
-#: src/flash/detectflash.c:129 src/flash/detectflash.c:161
+#: src/flash/detectflash.c:131 src/flash/detectflash.c:163
 msgid "Mitsubishi Extended Command Set"
 msgstr ""
 
-#: src/flash/detectflash.c:132 src/flash/detectflash.c:164
+#: src/flash/detectflash.c:134 src/flash/detectflash.c:166
 msgid "Page Write Command Set"
 msgstr ""
 
 # filter/source\xsltdialog\xmlfilterdialogstrings.src:STR_UNKNOWN_APPLICATION.text
-#: src/flash/detectflash.c:135 src/flash/detectflash.c:167
-#: src/flash/detectflash.c:225
+#: src/flash/detectflash.c:137 src/flash/detectflash.c:169
+#: src/flash/detectflash.c:227
 #, fuzzy
 msgid "unknown!!!"
 msgstr "Kitazwi"
 
-#: src/flash/detectflash.c:138
+#: src/flash/detectflash.c:140
 #, fuzzy, c-format
 msgid ""
 "\tPrimary Algorithm Command Set and Control Interface ID Code: 0x%04X (%s)\n"
 msgstr "Na"
 
-#: src/flash/detectflash.c:170
+#: src/flash/detectflash.c:172
 #, fuzzy, c-format
 msgid ""
 "\tAlternate Algorithm Command Set and Control Interface ID Code: 0x%04X "
 "(%s)\n"
 msgstr "Na"
 
-#: src/flash/detectflash.c:174
+#: src/flash/detectflash.c:176
 #, fuzzy
 msgid "Query system interface information:\n"
 msgstr "Sisitemu Ibisobanuro"
 
-#: src/flash/detectflash.c:175
+#: src/flash/detectflash.c:177
 #, fuzzy, c-format
 msgid "\tVcc Logic Supply Minimum Write/Erase or Write voltage: %d mV\n"
 msgstr "Cyangwa"
 
-#: src/flash/detectflash.c:177
+#: src/flash/detectflash.c:179
 #, fuzzy, c-format
 msgid "\tVcc Logic Supply Maximum Write/Erase or Write voltage: %d mV\n"
 msgstr "Cyangwa"
 
-#: src/flash/detectflash.c:179
+#: src/flash/detectflash.c:181
 #, c-format
 msgid "\tVpp [Programming] Supply Minimum Write/Erase voltage: %d mV\n"
 msgstr ""
 
-#: src/flash/detectflash.c:181
+#: src/flash/detectflash.c:183
 #, c-format
 msgid "\tVpp [Programming] Supply Maximum Write/Erase voltage: %d mV\n"
 msgstr ""
 
-#: src/flash/detectflash.c:183
+#: src/flash/detectflash.c:185
 #, fuzzy, c-format
 msgid "\tTypical timeout per single byte/word program: %d us\n"
 msgstr "Igihe cyarenze: UMWE Bayite ijambo Porogaramu"
 
-#: src/flash/detectflash.c:185
+#: src/flash/detectflash.c:187
 #, fuzzy, c-format
 msgid "\tTypical timeout for maximum-size multi-byte program: %d us\n"
 msgstr "Igihe cyarenze: kugirango Kinini Ingano Bayite Porogaramu"
 
-#: src/flash/detectflash.c:187
+#: src/flash/detectflash.c:189
 #, fuzzy, c-format
 msgid "\tTypical timeout per individual block erase: %d ms\n"
 msgstr "Igihe cyarenze: Funga"
 
-#: src/flash/detectflash.c:189
+#: src/flash/detectflash.c:191
 #, fuzzy, c-format
 msgid "\tTypical timeout for full chip erase: %d ms\n"
 msgstr "Igihe cyarenze: kugirango"
 
-#: src/flash/detectflash.c:191
+#: src/flash/detectflash.c:193
 #, fuzzy, c-format
 msgid "\tMaximum timeout for byte/word program: %d us\n"
 msgstr "Igihe cyarenze: kugirango Bayite ijambo Porogaramu"
 
-#: src/flash/detectflash.c:193
+#: src/flash/detectflash.c:195
 #, fuzzy, c-format
 msgid "\tMaximum timeout for multi-byte program: %d us\n"
 msgstr "Igihe cyarenze: kugirango Bayite Porogaramu"
 
-#: src/flash/detectflash.c:195
+#: src/flash/detectflash.c:197
 #, fuzzy, c-format
 msgid "\tMaximum timeout per individual block erase: %d ms\n"
 msgstr "Igihe cyarenze: Funga"
 
-#: src/flash/detectflash.c:197
+#: src/flash/detectflash.c:199
 #, fuzzy, c-format
 msgid "\tMaximum timeout for chip erase: %d ms\n"
 msgstr "Igihe cyarenze: kugirango"
 
-#: src/flash/detectflash.c:201
+#: src/flash/detectflash.c:203
 #, fuzzy
 msgid "Device geometry definition:\n"
 msgstr "Iyigamashusho Insobanuro"
 
-#: src/flash/detectflash.c:202
+#: src/flash/detectflash.c:204
 #, c-format
 msgid "\tDevice Size: %d B (%d KiB, %d MiB)\n"
 msgstr ""
 
-#: src/flash/detectflash.c:210
+#: src/flash/detectflash.c:212
 msgid "x8"
 msgstr ""
 
-#: src/flash/detectflash.c:213
+#: src/flash/detectflash.c:215
 msgid "x16"
 msgstr ""
 
-#: src/flash/detectflash.c:216
+#: src/flash/detectflash.c:218
 msgid "x8/x16"
 msgstr ""
 
-#: src/flash/detectflash.c:219
+#: src/flash/detectflash.c:221
 msgid "x32"
 msgstr ""
 
-#: src/flash/detectflash.c:222
+#: src/flash/detectflash.c:224
 msgid "x16/x32"
 msgstr ""
 
-#: src/flash/detectflash.c:228
+#: src/flash/detectflash.c:230
 #, fuzzy, c-format
 msgid "\tFlash Device Interface Code description: 0x%04X (%s)\n"
 msgstr "Isobanuramiterere"
 
-#: src/flash/detectflash.c:230
+#: src/flash/detectflash.c:232
 #, fuzzy, c-format
 msgid "\tMaximum number of bytes in multi-byte program: %d\n"
 msgstr "Umubare Bya Bayite in Bayite Porogaramu"
 
-#: src/flash/detectflash.c:232
+#: src/flash/detectflash.c:234
 #, fuzzy, c-format
 msgid "\tNumber of Erase Block Regions within device: %d\n"
 msgstr "Bya muri APAREYE"
 
-#: src/flash/detectflash.c:234
+#: src/flash/detectflash.c:236
 msgid "\tErase Block Region Information:\n"
 msgstr ""
 
-#: src/flash/detectflash.c:240
+#: src/flash/detectflash.c:242
 #, c-format
 msgid "\t\tRegion %d:\n"
 msgstr ""
 
-#: src/flash/detectflash.c:241
+#: src/flash/detectflash.c:243
 #, c-format
 msgid "\t\t\tErase Block Size: %d B (%d KiB)\n"
 msgstr ""
 
-#: src/flash/detectflash.c:246
+#: src/flash/detectflash.c:248
 #, fuzzy, c-format
 msgid "\t\t\tNumber of Erase Blocks: %d\n"
 msgstr "Bya"
 
-#: src/flash/detectflash.c:260
+#: src/flash/detectflash.c:262
 msgid "Required"
 msgstr ""
 
-#: src/flash/detectflash.c:260
+#: src/flash/detectflash.c:262
 msgid "Not required"
 msgstr ""
 
-#: src/flash/detectflash.c:263
+#: src/flash/detectflash.c:265
 msgid "Supported"
 msgstr ""
 
-#: src/flash/detectflash.c:263 src/flash/detectflash.c:277
-#: src/flash/detectflash.c:288
+#: src/flash/detectflash.c:265 src/flash/detectflash.c:279
+#: src/flash/detectflash.c:290
 #, fuzzy
 msgid "Not supported"
 msgstr "OYA"
 
-#: src/flash/detectflash.c:266
+#: src/flash/detectflash.c:268
 msgid "170-nm Floating Gate technology"
 msgstr ""
 
-#: src/flash/detectflash.c:267
+#: src/flash/detectflash.c:269
 msgid "230-nm MirrorBit(tm) technology"
 msgstr ""
 
-#: src/flash/detectflash.c:268
+#: src/flash/detectflash.c:270
 msgid "130-nm Floating Gate technology"
 msgstr ""
 
-#: src/flash/detectflash.c:269
+#: src/flash/detectflash.c:271
 msgid "110-nm MirrorBit(tm) technology"
 msgstr ""
 
-#: src/flash/detectflash.c:270
+#: src/flash/detectflash.c:272
 msgid "90-nm Floating Gate technology"
 msgstr ""
 
-#: src/flash/detectflash.c:271
+#: src/flash/detectflash.c:273
 msgid "90-nm MirrorBit(tm) technology"
 msgstr ""
 
-#: src/flash/detectflash.c:274
+#: src/flash/detectflash.c:276
 msgid "CS49"
 msgstr ""
 
-#: src/flash/detectflash.c:274
+#: src/flash/detectflash.c:276
 msgid "CS59"
 msgstr ""
 
-#: src/flash/detectflash.c:274
+#: src/flash/detectflash.c:276
 msgid "CS99"
 msgstr ""
 
-#: src/flash/detectflash.c:277
+#: src/flash/detectflash.c:279
 msgid "Read only"
 msgstr ""
 
-#: src/flash/detectflash.c:277
+#: src/flash/detectflash.c:279
 msgid "Read/write"
 msgstr ""
 
-#: src/flash/detectflash.c:280
+#: src/flash/detectflash.c:282
 msgid "29F040 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:280
+#: src/flash/detectflash.c:282
 msgid "29F016 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:280
+#: src/flash/detectflash.c:282
 msgid "29F400 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:281
+#: src/flash/detectflash.c:283
 msgid "29LV800 mode"
 msgstr ""
 
-#: src/flash/detectflash.c:282
+#: src/flash/detectflash.c:284
 msgid "29BDS640 mode (Software Command Locking)"
 msgstr ""
 
-#: src/flash/detectflash.c:283
+#: src/flash/detectflash.c:285
 msgid "29BDD160 mode (New Sector Protect)"
 msgstr ""
 
-#: src/flash/detectflash.c:284
+#: src/flash/detectflash.c:286
 msgid "29PDL128 mode (New Sector Protect + 29LV800)"
 msgstr ""
 
-#: src/flash/detectflash.c:285
+#: src/flash/detectflash.c:287
 msgid "Advanced Sector Protect"
 msgstr ""
 
-#: src/flash/detectflash.c:288
+#: src/flash/detectflash.c:290
 msgid "4 word Page"
 msgstr ""
 
-#: src/flash/detectflash.c:288
+#: src/flash/detectflash.c:290
 msgid "8 word Page"
 msgstr ""
 
-#: src/flash/detectflash.c:289
+#: src/flash/detectflash.c:291
 msgid "16 word Page"
 msgstr ""
 
-#: src/flash/detectflash.c:293
+#: src/flash/detectflash.c:295
 msgid "No boot"
 msgstr ""
 
-#: src/flash/detectflash.c:294
+#: src/flash/detectflash.c:296
 msgid "8x8kb sectors at top and bottom with WP control"
 msgstr ""
 
-#: src/flash/detectflash.c:295
+#: src/flash/detectflash.c:297
 msgid "Bottom boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:295
+#: src/flash/detectflash.c:297
 msgid "Top boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:296
+#: src/flash/detectflash.c:298
 msgid "Uniform bottom boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:296
+#: src/flash/detectflash.c:298
 msgid "Uniform top boot device"
 msgstr ""
 
-#: src/flash/detectflash.c:298
+#: src/flash/detectflash.c:300
 msgid "Bad value"
 msgstr ""
 
-#: src/flash/detectflash.c:304
+#: src/flash/detectflash.c:306
 msgid "Primary Vendor-Specific Extended Query:\n"
-msgstr ""
-
-#: src/flash/detectflash.c:305
-#, c-format
-msgid "\tMajor version number: %c\n"
 msgstr ""
 
 #: src/flash/detectflash.c:307
 #, c-format
+msgid "\tMajor version number: %c\n"
+msgstr ""
+
+#: src/flash/detectflash.c:309
+#, c-format
 msgid "\tMinor version number: %c\n"
 msgstr ""
 
-#: src/flash/detectflash.c:314 src/flash/detectflash.c:318
+#: src/flash/detectflash.c:316 src/flash/detectflash.c:320
 #, c-format
 msgid "\tAddress Sensitive Unlock: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:325 src/flash/detectflash.c:330
-#: src/flash/detectflash.c:336 src/flash/detectflash.c:341
+#: src/flash/detectflash.c:327 src/flash/detectflash.c:332
+#: src/flash/detectflash.c:338 src/flash/detectflash.c:343
 #, c-format
 msgid "\tProcess Technology: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:344
+#: src/flash/detectflash.c:346
 #, c-format
 msgid "\tErase Suspend: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:347
+#: src/flash/detectflash.c:349
 #, fuzzy
 msgid "\tSector Protect: Not supported\n"
 msgstr "OYA"
 
-#: src/flash/detectflash.c:349
+#: src/flash/detectflash.c:351
 #, c-format
 msgid "\tSector Protect: %d sectors per group\n"
 msgstr ""
 
-#: src/flash/detectflash.c:353 src/flash/detectflash.c:357
+#: src/flash/detectflash.c:355 src/flash/detectflash.c:359
 #, c-format
 msgid "\tSector Temporary Unprotect: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:361 src/flash/detectflash.c:365
+#: src/flash/detectflash.c:363 src/flash/detectflash.c:367
 #, c-format
 msgid "\tSector Protect/Unprotect Scheme: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:368
+#: src/flash/detectflash.c:370
 #, fuzzy
 msgid "\tSimultaneous Operation: Not supported\n"
 msgstr "OYA"
 
-#: src/flash/detectflash.c:370
+#: src/flash/detectflash.c:372
 #, c-format
 msgid "\tSimultaneous Operation: %d sectors\n"
 msgstr ""
 
-#: src/flash/detectflash.c:374 src/flash/detectflash.c:377
+#: src/flash/detectflash.c:376 src/flash/detectflash.c:379
 #, c-format
 msgid "\tBurst Mode Type: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:380 src/flash/detectflash.c:383
+#: src/flash/detectflash.c:382 src/flash/detectflash.c:385
 #, c-format
 msgid "\tPage Mode Type: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:389
+#: src/flash/detectflash.c:391
 #, c-format
 msgid "\tACC (Acceleration) Supply Minimum: %d mV\n"
 msgstr ""
 
-#: src/flash/detectflash.c:391
+#: src/flash/detectflash.c:393
 #, c-format
 msgid "\tACC (Acceleration) Supply Maximum: %d mV\n"
 msgstr ""
 
-#: src/flash/detectflash.c:395 src/flash/detectflash.c:398
+#: src/flash/detectflash.c:397 src/flash/detectflash.c:400
 #, c-format
 msgid "\tTop/Bottom Sector Flag: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:405 src/flash/detectflash.c:408
+#: src/flash/detectflash.c:407 src/flash/detectflash.c:410
 #, c-format
 msgid "\tProgram Suspend: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:415 src/flash/detectflash.c:418
+#: src/flash/detectflash.c:417 src/flash/detectflash.c:420
 #, c-format
 msgid "\tUnlock Bypass: %s\n"
 msgstr ""
 
-#: src/flash/detectflash.c:419
+#: src/flash/detectflash.c:421
 #, c-format
 msgid "\tSecSi Sector (Customer OTP Area) Size: %d bytes\n"
 msgstr ""
 
-#: src/flash/detectflash.c:421
+#: src/flash/detectflash.c:423
 #, c-format
 msgid "\tEmbedded Hardware Reset Timeout Maximum: %d ns\n"
 msgstr ""
 
-#: src/flash/detectflash.c:423
+#: src/flash/detectflash.c:425
 #, c-format
 msgid "\tNon-Embedded Hardware Reset Timeout Maximum: %d ns\n"
 msgstr ""
 
-#: src/flash/detectflash.c:425
+#: src/flash/detectflash.c:427
 #, c-format
 msgid "\tErase Suspend Timeout Maximum: %d us\n"
 msgstr ""
 
-#: src/flash/detectflash.c:427
+#: src/flash/detectflash.c:429
 #, c-format
 msgid "\tProgram Suspend Timeout Maximum: %d us\n"
 msgstr ""
 
-#: src/flash/detectflash.c:434
+#: src/flash/detectflash.c:436
 msgid "\tBank Organization:\n"
 msgstr ""
 
-#: src/flash/detectflash.c:436
+#: src/flash/detectflash.c:438
 #, c-format
 msgid "\t\tBank%d: %d sectors\n"
 msgstr ""
 
-#: src/flash/flash.c:92
+#: src/flash/flash.c:95
 #, fuzzy, c-format
 msgid "unknown flash - vendor id: %d (0x%04x)\n"
 msgstr "Kitazwi Umurabyo Umucuruzi ID"
 
-#: src/flash/flash.c:96
+#: src/flash/flash.c:99
 #, fuzzy
 msgid "Flash not supported"
 msgstr "OYA"
 
-#: src/flash/flash.c:105
+#: src/flash/flash.c:108
 msgid "fread() was short"
 msgstr ""
 
-#: src/flash/flash.c:119 src/flash/flash.c:315 src/flash/flash.c:488
-#: src/flash/flash.c:569
+#: src/flash/flash.c:122 src/flash/flash.c:321 src/flash/flash.c:494
+#: src/flash/flash.c:575
 #, fuzzy
 msgid "no flash driver found"
 msgstr "Oya Umurabyo Musomyi:"
 
-#: src/flash/flash.c:132
+#: src/flash/flash.c:135
 msgid "Invalid sync sequence"
 msgstr ""
 
-#: src/flash/flash.c:156
+#: src/flash/flash.c:159
 #, fuzzy, c-format
 msgid "block %d unlocked\n"
 msgstr "Funga"
 
-#: src/flash/flash.c:159 src/flash/flash.c:366
+#: src/flash/flash.c:162 src/flash/flash.c:372
 #, fuzzy, c-format
 msgid "erasing block %d: %d\n"
 msgstr "Funga"
 
 # offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_HELPERPROG.FT_PROGRAM.text
-#: src/flash/flash.c:164 src/flash/flash.c:338
+#: src/flash/flash.c:167 src/flash/flash.c:344
 #, fuzzy
 msgid "program:\n"
 msgstr "Porogaramu"
 
-#: src/flash/flash.c:174 src/flash/flash.c:226
+#: src/flash/flash.c:177 src/flash/flash.c:229
 #, fuzzy
 msgid "premature end of file"
 msgstr "Impera Bya"
 
-#: src/flash/flash.c:178 src/flash/flash.c:230
+#: src/flash/flash.c:181 src/flash/flash.c:233
 #, fuzzy, c-format
 msgid "record: start = 0x%08lX, len = 0x%08lX, checksum = 0x%08lX\n"
 msgstr "Icyabitswe Gutangira LEN"
 
-#: src/flash/flash.c:184 src/flash/flash.c:236
+#: src/flash/flash.c:187 src/flash/flash.c:239
 #, fuzzy
 msgid "Invalid record length"
 msgstr "Icyabitswe Uburebure"
 
-#: src/flash/flash.c:192 src/flash/flash.c:244 src/flash/flash.c:376
-#: src/flash/flash.c:438
+#: src/flash/flash.c:195 src/flash/flash.c:247 src/flash/flash.c:382
+#: src/flash/flash.c:444
 #, fuzzy, c-format
 msgid "addr: 0x%08lX"
 msgstr "Aderesi"
 
-#: src/flash/flash.c:210 src/flash/flash.c:412
+#: src/flash/flash.c:213 src/flash/flash.c:418
 msgid "verify skipped\n"
 msgstr ""
 
-#: src/flash/flash.c:215 src/flash/flash.c:417
+#: src/flash/flash.c:218 src/flash/flash.c:423
 msgid "verify:\n"
 msgstr ""
 
-#: src/flash/flash.c:252
+#: src/flash/flash.c:255
 #, fuzzy, c-format
 msgid "verify error: 0x%08lX vs. 0x%08lX at addr %08lX"
 msgstr "Ikosa ku Aderesi"
 
-#: src/flash/flash.c:331
+#: src/flash/flash.c:337
 #, c-format
 msgid "malloc(%zd) failed"
 msgstr ""
 
-#: src/flash/flash.c:362
+#: src/flash/flash.c:368
 #, fuzzy, c-format
 msgid ""
 "\n"
 "block %d unlocked\n"
 msgstr "Funga"
 
-#: src/flash/flash.c:405
+#: src/flash/flash.c:411
 #, fuzzy, c-format
 msgid "addr: 0x%08lX\n"
 msgstr "Aderesi"
 
-#: src/flash/flash.c:457
+#: src/flash/flash.c:463
 #, fuzzy, c-format
 msgid ""
 "addr: 0x%08lX\n"
@@ -2587,84 +2594,84 @@ msgid ""
 "expected: 0x%08lX\n"
 msgstr "Ikosa Ikitezwe:"
 
-#: src/flash/flash.c:470
+#: src/flash/flash.c:476
 #, fuzzy, c-format
 msgid ""
 "addr: 0x%08lX\n"
 "Done.\n"
 msgstr "Aderesi"
 
-#: src/flash/flash.c:497
+#: src/flash/flash.c:503
 #, c-format
 msgid ""
 "\n"
 "Erasing %d Flash block%s from address 0x%lx\n"
 msgstr ""
 
-#: src/flash/flash.c:515
+#: src/flash/flash.c:521
 #, c-format
 msgid "(%d%% Completed) FLASH Block %d : Unlocking ... "
 msgstr ""
 
-#: src/flash/flash.c:518
+#: src/flash/flash.c:524
 msgid "Erasing ... "
 msgstr ""
 
-#: src/flash/flash.c:526
+#: src/flash/flash.c:532
 #, c-format
 msgid "(100%% Completed) FLASH Block %d : Unlocking ... Erasing ... Ok.\n"
 msgstr ""
 
-#: src/flash/flash.c:531 src/flash/flash.c:622
+#: src/flash/flash.c:537 src/flash/flash.c:628
 msgid "Ok."
 msgstr ""
 
-#: src/flash/flash.c:533 src/flash/flash.c:624
+#: src/flash/flash.c:539 src/flash/flash.c:630
 #, c-format
 msgid "%78s"
 msgstr ""
 
-#: src/flash/flash.c:539 src/flash/flash.c:630
+#: src/flash/flash.c:545 src/flash/flash.c:636
 msgid "ERROR.\n"
 msgstr ""
 
-#: src/flash/flash.c:546
+#: src/flash/flash.c:552
 msgid ""
 "\n"
 "Erasing Completed.\n"
 msgstr ""
 
-#: src/flash/flash.c:548
+#: src/flash/flash.c:554
 msgid ""
 "\n"
 "Erasing (partially) Failed.\n"
 msgstr ""
 
-#: src/flash/flash.c:578
+#: src/flash/flash.c:584
 #, c-format
 msgid ""
 "\n"
 "%s %d Flash block%s from address 0x%lx\n"
 msgstr ""
 
-#: src/flash/flash.c:600
+#: src/flash/flash.c:606
 #, c-format
 msgid "(%d%% Completed) FLASH Block %d : %s ... "
 msgstr ""
 
-#: src/flash/flash.c:615
+#: src/flash/flash.c:621
 #, c-format
 msgid "(100%% Completed) FLASH Block %d : %s ... Ok.\n"
 msgstr ""
 
-#: src/flash/flash.c:637
+#: src/flash/flash.c:643
 #, c-format
 msgid ""
 "\n"
 "%s Completed.\n"
 msgstr ""
 
-#: src/flash/flash.c:640
+#: src/flash/flash.c:646
 #, c-format
 msgid ""
 "\n"
@@ -2685,57 +2692,57 @@ msgstr "Ukora mu nganda"
 msgid "Chip: "
 msgstr ""
 
-#: src/flash/intel.c:197
+#: src/flash/intel.c:215
 #, fuzzy, c-format
 msgid "Unknown (0x%02lX)!\n"
 msgstr "Ukora mu nganda"
 
-#: src/flash/intel.c:258
+#: src/flash/intel.c:276
 #, fuzzy
 msgid "invalid command seq"
 msgstr "Umurabyo Sibyo Komandi:"
 
-#: src/flash/intel.c:261
+#: src/flash/intel.c:279
 #, fuzzy
 msgid "low vpen"
 msgstr "Umurabyo Byo hasi"
 
-#: src/flash/intel.c:264
+#: src/flash/intel.c:282
 #, fuzzy
 msgid "block locked"
 msgstr "Funga"
 
-#: src/flash/intel.c:290
+#: src/flash/intel.c:308
 #, fuzzy
 msgid "unknown error while unlocking block"
 msgstr "Umurabyo Kitazwi Ikosa"
 
-#: src/flash/intel.c:313
+#: src/flash/intel.c:331
 #, fuzzy
 msgid "unknown error while locking block"
 msgstr "Umurabyo Kitazwi Ikosa"
 
-#: src/flash/intel.c:323
+#: src/flash/intel.c:341
 #, fuzzy
 msgid "locking block failed"
 msgstr "Funga"
 
-#: src/flash/intel.c:347 src/flash/intel.c:407
+#: src/flash/intel.c:365 src/flash/intel.c:425
 #, fuzzy
 msgid "unknown error while programming"
 msgstr "Umurabyo Kitazwi Ikosa"
 
-#: src/flash/intel.c:576
+#: src/flash/intel.c:594
 #, fuzzy
 msgid "supported: 28Fxxxx, 2 x 16 bit"
 msgstr "2. X"
 
-#: src/flash/intel.c:589
+#: src/flash/intel.c:607
 #, fuzzy
 msgid "supported: 28Fxxxx, 1 x 16 bit"
 msgstr "1. X"
 
-#: src/flash/intel.c:602
+#: src/flash/intel.c:620
 #, fuzzy
 msgid "supported: 28Fxxxx, 1 x 8 bit"
 msgstr "1. X 8"
@@ -2775,41 +2782,41 @@ msgstr "Kwiyandikisha"
 msgid "Instruction name too long\n"
 msgstr "Izina:"
 
-#: src/part/part.c:238
+#: src/part/part.c:246
 #, fuzzy, c-format
 msgid "signal '%s' cannot be set as output"
 msgstr "Gushyiraho Nka"
 
-#: src/part/part.c:253
+#: src/part/part.c:261
 #, fuzzy, c-format
 msgid "signal '%s' cannot be set as input"
 msgstr "Gushyiraho Nka"
 
-#: src/part/part.c:287
+#: src/part/part.c:295
 #, fuzzy, c-format
 msgid "signal '%s' is not input signal"
 msgstr "ni OYA Iyinjiza"
 
-#: src/part/part.c:307
+#: src/part/part.c:315
 #, c-format
 msgid "%%-%ds %%-%ds %%-%ds %%-%ds %%-%ds\n"
 msgstr ""
 
-#: src/part/part.c:319 src/part/part.c:321
+#: src/part/part.c:327 src/part/part.c:329
 msgid "(none)"
 msgstr "(ntacyo)"
 
-#: src/part/part.c:335
+#: src/part/part.c:343
 #, fuzzy
 msgid "instruction length is already set and used"
 msgstr "Uburebure ni Gushyiraho Na"
 
-#: src/part/part.c:362
+#: src/part/part.c:370
 #, fuzzy, c-format
 msgid "Instruction '%s' already defined"
 msgstr "Kwiyandikisha"
 
-#: src/part/part.c:370
+#: src/part/part.c:378
 #, fuzzy, c-format
 msgid "unknown data register '%s'"
 msgstr "Kitazwi Ibyatanzwe Kwiyandikisha"
@@ -2920,12 +2927,12 @@ msgstr ""
 msgid "Scanned device output matched expected TDO values.\n"
 msgstr ""
 
-#: src/svf/svf_flex.l:404
+#: src/svf/svf_flex.l:406
 #, c-format
 msgid "Parsing %6d/%d (%3.0d%%)"
 msgstr ""
 
-#: src/svf/svf_flex.l:424 src/tap/cable/ft2232.c:2503
+#: src/svf/svf_flex.l:426 src/tap/cable/ft2232.c:2610
 #: src/tap/cable/generic_parport.c:89 src/tap/cable/generic_usbconn.c:156
 #: src/tap/cable/jim.c:71 src/tap/cable/ts7800.c:170
 #: src/tap/cable/usbblaster.c:79 src/tap/cable/vision_ep9307.c:214
@@ -2984,97 +2991,113 @@ msgstr ""
 msgid "ETC EI012 JTAG Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:354
+#: src/tap/cable/ft2232.c:368
 #, c-format
 msgid "Warning: Setting lowest supported frequency for FT2232%s: %d\n"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:934
+#: src/tap/cable/ft2232.c:952
 msgid "Please power on the TARGET board and connect VCC signal"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:1065
+#: src/tap/cable/ft2232.c:1083
 msgid "Vref not detected. Please power on Milkymist One"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:1293
+#: src/tap/cable/ft2232.c:1359
 msgid "JTAGv5: Power of target not detected. Please power on target device."
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2576
+#: src/tap/cable/ft2232.c:2683
 msgid "Generic FTDI FT2232 Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2596
-msgid "Olimex ARM-USB-OCD[-TINY] (FT2232) Cable"
+#: src/tap/cable/ft2232.c:2703
+msgid "Olimex ARM-USB-OCD (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2617
+#: src/tap/cable/ft2232.c:2723
+msgid "Olimex ARM-USB-OCD-TINY (FT2232) Cable"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:2743
 msgid "Olimex ARM-USB-TINY-H (FT2232H) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2638
+#: src/tap/cable/ft2232.c:2763
+msgid "Olimex ARM-USB-OCD-H (FT2232H) Cable"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:2783
 msgid "Analog Devices Blackfin gnICE (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2658
+#: src/tap/cable/ft2232.c:2803
 msgid "Analog Devices Blackfin gnICE+ (FT2232H) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2678
+#: src/tap/cable/ft2232.c:2823
 msgid "Amontec JTAGkey (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2698
+#: src/tap/cable/ft2232.c:2843
 msgid "OOCDLink-s (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2718
+#: src/tap/cable/ft2232.c:2863
 msgid "Turtelizer 2 Rev. B (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2738
+#: src/tap/cable/ft2232.c:2883
 msgid "USB<=>JTAG&RS232 (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2758
+#: src/tap/cable/ft2232.c:2903
 msgid "USB to JTAG Interface (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2778
+#: src/tap/cable/ft2232.c:2923
 msgid "Xverve DT-USB-ST Signalyzer Tool (FT2232) Cable (EXPERIMENTAL)"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2798
+#: src/tap/cable/ft2232.c:2943
 msgid "TinCanTools Flyswatter (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2818
+#: src/tap/cable/ft2232.c:2963
 msgid "KrisTech usbScarabeus2 (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2838
+#: src/tap/cable/ft2232.c:2983
 msgid "KrisTech KT-LINK (FT2232H based) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2858
+#: src/tap/cable/ft2232.c:3003
 msgid "Milkymist JTAG/serial (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2878
+#: src/tap/cable/ft2232.c:3023
 msgid "Digilent HS1 Adapter"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2898
+#: src/tap/cable/ft2232.c:3043
+msgid "Digilent HS2 Adapter"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:3063
 msgid "Generic FTDI FT4232 Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2918
+#: src/tap/cable/ft2232.c:3083
 msgid "XDS100 compatible JTAG/serial (FT2232) Cable"
 msgstr ""
 
-#: src/tap/cable/ft2232.c:2938
+#: src/tap/cable/ft2232.c:3103
 msgid "XDS100v2 compatible JTAG/serial (FT2232H) Cable"
+msgstr ""
+
+#: src/tap/cable/ft2232.c:3123
+msgid "Digilent HS3 Adapter"
 msgstr ""
 
 #: src/tap/cable/generic.c:104
