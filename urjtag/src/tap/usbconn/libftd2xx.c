@@ -180,7 +180,7 @@ usbconn_ftd2xx_flush (ftd2xx_param_t *p)
     }
 
     urj_log (URJ_LOG_LEVEL_COMM,
-             "%sflush end: status %ld, xferred %ld, recvd %ld\n", module,
+             "%sflush end: status %u, xferred %u, recvd %u\n", module,
             status, xferred, recvd);
 
     return status != FT_OK ? -1 : xferred;
@@ -233,7 +233,7 @@ usbconn_ftd2xx_read (urj_usbconn_t *conn, uint8_t *buf, int len)
                                ftd2xx_status_string(status));
     }
 
-    urj_log (URJ_LOG_LEVEL_COMM, "%sread end  : status %ld, length %d\n",
+    urj_log (URJ_LOG_LEVEL_COMM, "%sread end  : status %u, length %d\n",
              module, status, cpy_len + len);
 
     return status != FT_OK ? -1 : cpy_len + len;

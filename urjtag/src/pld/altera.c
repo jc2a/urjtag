@@ -319,64 +319,63 @@ static alt_device_config_t* alt_lookup_device_parameters(urj_pld_t *pld, uint32_
         return NULL;
     }
 
-   FILE *file = fopen(filename, "r");
+    FILE *file = fopen(filename, "r");
 
-   urj_log (URJ_LOG_LEVEL_NORMAL, _("Altera PLD part configuration read from %s\n"), filename);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("Altera PLD part configuration read from %s\n"), filename);
 
-   free(filename);
+    if ( file )
+    {
+        for ( i = 0; fgets(buffer, sizeof buffer, file); ++i )
+        {
+            /*
+             * Parse the comma-separated values from each line into 'array'.
+	         * skip blank lines and those that begin with #
+	         * format:  Family,Part,IDCODE,STATUS_pins, CONF_DONE_pinpos
+             */
+            if (strncmp(buffer, "#", 1) == 0) continue;
+            if (strncmp(buffer, "\n", 1) == 0) continue;
+            if (strncmp(buffer, " \n", 1) == 0) continue;
 
-   if ( file )
-   {
-      for ( i = 0; fgets(buffer, sizeof buffer, file); ++i ) 
-      {
-         /*
-          * Parse the comma-separated values from each line into 'array'.
-	  * skip blank lines and those that begin with #
-	  * format:  Family,Part,IDCODE,STATUS_pins, CONF_DONE_pinpos
-          */
-          if (strncmp(buffer, "#", 1) == 0) continue;
-          if (strncmp(buffer, "\n", 1) == 0) continue;
-          if (strncmp(buffer, " \n", 1) == 0) continue;
-
-          int r = sscanf(buffer, "%[^,\n]%*c%[^,\n]%*c%x,%d,%d", family, device, &jidcode, &jseq_max, &jseq_conf_done);
-          if (r != 5)
-          {
-              urj_log (URJ_LOG_LEVEL_ERROR, _("Malformed pld partdb line %d: %s"), i, buffer);
-              continue;
-          }
-          urj_log(URJ_LOG_LEVEL_DEBUG, _("   part %20s %20s %08x  %d %d\n"), family, device, jidcode, jseq_max, jseq_conf_done);
-
-          if (jidcode == idcode && !retval)
-          {
-            if (retval)
+            int r = sscanf(buffer, "%[^,\n]%*c%[^,\n]%*c%x,%d,%d", family, device, &jidcode, &jseq_max, &jseq_conf_done);
+            if (r != 5)
             {
-               
-               urj_log(URJ_LOG_LEVEL_ERROR, _("error: part %20s %20s %08x  %d %d\n"), family, device, jidcode, jseq_max, jseq_conf_done);
-               urj_log(URJ_LOG_LEVEL_ERROR, _("clashes with: part %20s %20s %08x  %d %d\nResolve by checking DR-length."), 
-                    retval->family, retval->device, retval->idcode, retval->jseq_max, retval->jseq_conf_done);
-               return NULL;
+                urj_log (URJ_LOG_LEVEL_ERROR, _("Malformed pld partdb line %d: %s"), i, buffer);
+                continue;
             }
-            urj_log(URJ_LOG_LEVEL_DEBUG, _("matched   part %20s %20s %08x  %d %d\n"), family, device, jidcode, jseq_max, jseq_conf_done);
+            urj_log(URJ_LOG_LEVEL_DEBUG, _("   part %20s %20s %08x  %d %d\n"), family, device, jidcode, jseq_max, jseq_conf_done);
 
-            /* populate alt_device_config_t */
-            retval = malloc(sizeof(alt_device_config_t));
+            if (jidcode == idcode && !retval)
+            {
+                if (retval)
+                {
+                    urj_log(URJ_LOG_LEVEL_ERROR, _("error: part %20s %20s %08x  %d %d\n"), family, device, jidcode, jseq_max, jseq_conf_done);
+                    urj_log(URJ_LOG_LEVEL_ERROR, _("clashes with: part %20s %20s %08x  %d %d\nResolve by checking DR-length."),
+                        retval->family, retval->device, retval->idcode, retval->jseq_max, retval->jseq_conf_done);
+                    fclose(file);
+                    free(filename);
+                    return NULL;
+                }
+                urj_log(URJ_LOG_LEVEL_DEBUG, _("matched   part %20s %20s %08x  %d %d\n"), family, device, jidcode, jseq_max, jseq_conf_done);
 
-            retval->family = strdup(family);
-            retval->device = strdup(device);
-            retval->idcode = idcode;
-            retval->jseq_max = jseq_max;
-            retval->jseq_conf_done = jseq_conf_done;
+                /* populate alt_device_config_t */
+                retval = malloc(sizeof(alt_device_config_t));
 
-          }
-      }
-      fclose(file);
+                retval->family = strdup(family);
+                retval->device = strdup(device);
+                retval->idcode = idcode;
+                retval->jseq_max = jseq_max;
+                retval->jseq_conf_done = jseq_conf_done;
+            }
+        }
+        fclose(file);
+    }
+    else /* fopen() returned NULL */
+    {
+        perror(filename);
+    }
 
-   }
-   else /* fopen() returned NULL */
-   {
-      perror(filename);
-   }
-   return retval;
+    free(filename);
+    return retval;
 }
 
 static void alt_free_device_parameters( alt_device_config_t* dev)

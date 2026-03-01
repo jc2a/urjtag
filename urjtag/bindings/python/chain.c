@@ -401,7 +401,7 @@ urj_pyc_set_instruction (urj_pychain_t *self, PyObject *args)
 static PyObject *
 urj_pyc_get_instruction (urj_pychain_t *self)
 {
-    char *instname;
+    const char *instname;
     urj_part_t *part;
     urj_chain_t *urc = self->urchain;
 
