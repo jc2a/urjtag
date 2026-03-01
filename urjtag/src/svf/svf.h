@@ -130,7 +130,7 @@ struct scanner_extra
 };
 typedef struct scanner_extra urj_svf_scanner_extra_t;
 
-struct YYLTYPE;
+struct URJ_SVF_LTYPE;
 
 void *urj_svf_flex_init (FILE *, int);
 void urj_svf_flex_deinit (void *);
@@ -148,6 +148,6 @@ int urj_svf_state (urj_chain_t *, urj_svf_parser_priv_t *,
                    struct path_states *, int);
 int urj_svf_sxr (urj_chain_t *, urj_svf_parser_priv_t *,
                  enum generic_irdr_coding, struct ths_params *,
-                 struct YYLTYPE *);
+                 struct URJ_SVF_LTYPE *);
 int urj_svf_trst (urj_chain_t *, urj_svf_parser_priv_t *, int);
 int urj_svf_txr (enum generic_irdr_coding, struct ths_params *);

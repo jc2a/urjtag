@@ -46,6 +46,8 @@ noinst_HEADERS = \
 
 AM_CFLAGS = $(WARNINGCFLAGS)
 
+AM_YFLAGS = -Wno-yacc
+
 # additional dependencies
 # - *_flex files must be processed after their *_bison counterparts
 #   to ensure that *_bison.h is present

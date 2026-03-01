@@ -47,6 +47,8 @@
 #include "svf_bison.h"
 
 #define YY_EXTRA_TYPE urj_svf_scanner_extra_t *
+#define YYSTYPE URJ_SVF_STYPE
+#define YYLTYPE URJ_SVF_LTYPE
 
 static int map_keyw_ident(YYSTYPE *, char *);
 static int align_string(char *);

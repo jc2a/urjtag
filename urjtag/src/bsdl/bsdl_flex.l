@@ -139,6 +139,7 @@ LEGAL NOTICES:
 #endif
 
 #define YY_EXTRA_TYPE urj_bsdl_scan_extra_t *
+#define YYSTYPE URJ_BSDL_STYPE
 
 static char *new_string (urj_bsdl_scan_extra_t *, const char *);
 

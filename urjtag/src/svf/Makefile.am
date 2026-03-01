@@ -21,7 +21,7 @@
 
 include $(top_srcdir)/Makefile.rules
 
-AM_YFLAGS = -d
+AM_YFLAGS = -d -Wno-yacc
 
 noinst_LTLIBRARIES = \
 	libsvf.la \

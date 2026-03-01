@@ -117,12 +117,12 @@ LEGAL NOTICES:
 */
 
 
-%pure-parser
+%define api.pure
 %parse-param {urj_bsdl_parser_priv_t *priv_data}
 /* See https://lists.gnu.org/archive/html/bug-bison/2014-02/msg00002.html */
 %lex-param {void *HACK}
 %defines
-%name-prefix "urj_bsdl_"
+%define api.prefix {urj_bsdl_}
 
 %{
 #include <stdlib.h>
@@ -144,7 +144,7 @@ LEGAL NOTICES:
 #endif
 
 #define HACK priv_data->scanner
-int yylex (YYSTYPE *, void *);
+int yylex (URJ_BSDL_STYPE *, void *);
 
 #if 1
 #define ERROR_LIMIT 0

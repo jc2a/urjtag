@@ -445,7 +445,7 @@ urj_svf_copy_hex_to_register (char *hex_string, urj_tap_register_t *reg)
  */
 static int
 urj_svf_compare_tdo (urj_svf_parser_priv_t *priv, char *tdo, char *mask,
-                     urj_tap_register_t *reg, YYLTYPE *loc)
+                     urj_tap_register_t *reg, URJ_SVF_LTYPE *loc)
 {
     char *tdo_bit, *mask_bit;
     int pos, mismatch, result = URJ_STATUS_OK;
@@ -833,7 +833,7 @@ urj_svf_state (urj_chain_t *chain, urj_svf_parser_priv_t *priv,
 int
 urj_svf_sxr (urj_chain_t *chain, urj_svf_parser_priv_t *priv,
              enum generic_irdr_coding ir_dr, struct ths_params *params,
-             YYLTYPE *loc)
+             URJ_SVF_LTYPE *loc)
 {
     urj_svf_sxr_t *sxr_params;
     int len, result = URJ_STATUS_OK;
