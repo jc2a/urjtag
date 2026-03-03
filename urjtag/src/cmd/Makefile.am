@@ -95,10 +95,12 @@ all_cmd_files = \
 	cmd_stapl.c \
 	cmd_svf.c
 
+abs_cmd_files = $(addprefix $(srcdir)/,$(all_cmd_files))
+
 generated_cmd_list.h: generated_cmd_list.h.stamp ; @true
-generated_cmd_list.h.stamp: $(all_cmd_files)
+generated_cmd_list.h.stamp: $(abs_cmd_files)
 	$(AM_V_GEN)set -e; \
-	cmds=`$(SED) -n '/^const urj_cmd_t urj_cmd_/{s:.*urj_cmd_::;s: =.*::;p;}' $(all_cmd_files)`; \
+	cmds=`$(SED) -n '/^const urj_cmd_t urj_cmd_/{s:.*urj_cmd_::;s: =.*::;p;}' $(abs_cmd_files)`; \
 	for c in $$cmds ; do \
 		printf '#ifndef URJ_CMD_SKIP_%s\n_URJ_CMD(%s)\n#endif\n' $$c $$c; \
 	done > generated_cmd_list.h.tmp; \

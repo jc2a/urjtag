@@ -93,6 +93,6 @@ liburjtag_la_LIBADD += stapl/libstapl.la
 endif
 
 localedir = $(datadir)/locale
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+AM_CPPFLAGS += -DLOCALEDIR=\"$(localedir)\"
 
 AM_CFLAGS = $(WARNINGCFLAGS)

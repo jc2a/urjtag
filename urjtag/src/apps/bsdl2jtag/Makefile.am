@@ -32,6 +32,6 @@ bsdl2jtag_LDADD = \
 	@LIBINTL@
 
 localedir = $(datadir)/locale
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+AM_CPPFLAGS += -DLOCALEDIR=\"$(localedir)\"
 
 AM_CFLAGS = $(WARNINGCFLAGS)

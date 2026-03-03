@@ -25,7 +25,7 @@ setup(name="urjtag",
       ext_modules=[
         Extension("urjtag", ["@srcdir@/chain.c", "@srcdir@/register.c"],
                   define_macros=[('HAVE_CONFIG_H', None)],
-                  include_dirs=['@top_srcdir@', '@top_srcdir@/include', '@top_builddir@'],
+                  include_dirs=['@top_srcdir@', '@top_srcdir@/include', '@top_srcdir@/include/urjtag', '@top_builddir@', '@top_builddir@/include', '@top_builddir@/include/urjtag'],
                   library_dirs=['@top_builddir@/src/.libs', str(python_bin_dir), str(ftdi_dir)],
                   libraries=libraries)
          ])
