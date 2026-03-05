@@ -94,6 +94,8 @@ nobase_dist_pkgdata_DATA = \
 	broadcom/bcm4702/STEPPINGS \
 	broadcom/bcm4702/bcm4702 \
 	broadcom/bcm4712/STEPPINGS \
+	broadcom/bcm5352/bcm5352 \
+	broadcom/bcm5352/STEPPINGS \
 	broadcom/bcm4712/bcm4712 \
 	broadcom/bcm5421s/STEPPINGS \
 	broadcom/bcm5421s/bcm5421s \
