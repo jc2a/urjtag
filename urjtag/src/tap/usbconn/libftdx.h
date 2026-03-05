@@ -43,18 +43,26 @@
  */
 #ifdef ENABLE_LOWLEVEL_FTDI
 #define _URJ_DECLARE_FTDI_CABLE(v, p, d, n, c) URJ_DECLARE_USBCONN_CABLE(v, p, d, n, c)
+#define _URJ_DECLARE_FTDI_CABLE_INTF(v, p, d, n, c, i) URJ_DECLARE_USBCONN_CABLE_INTF(v, p, d, n, c, i)
 #else
 #define _URJ_DECLARE_FTDI_CABLE(v, p, d, n, c)
+#define _URJ_DECLARE_FTDI_CABLE_INTF(v, p, d, n, c, i)
 #endif
 #ifdef ENABLE_LOWLEVEL_FTD2XX
 #define _URJ_DECLARE_FTD2XX_CABLE(v, p, d, n, c) URJ_DECLARE_USBCONN_CABLE(v, p, d, n, c)
+#define _URJ_DECLARE_FTD2XX_CABLE_INTF(v, p, d, n, c, i) URJ_DECLARE_USBCONN_CABLE_INTF(v, p, d, n, c, i)
 #else
 #define _URJ_DECLARE_FTD2XX_CABLE(v, p, d, n, c)
+#define _URJ_DECLARE_FTD2XX_CABLE_INTF(v, p, d, n, c, i)
 #endif
 
 #define URJ_DECLARE_FTDX_CABLE(v, p, d, n, c) \
 	_URJ_DECLARE_FTDI_CABLE(v, p, "ftdi"d, n, c##_ftdi) \
 	_URJ_DECLARE_FTD2XX_CABLE(v, p, "ftd2xx"d, n, c##_ftd2xx)
+
+#define URJ_DECLARE_FTDX_CABLE_INTF(v, p, d, n, c, i) \
+	_URJ_DECLARE_FTDI_CABLE_INTF(v, p, "ftdi"d, n, c##_ftdi, i) \
+	_URJ_DECLARE_FTD2XX_CABLE_INTF(v, p, "ftd2xx"d, n, c##_ftd2xx, i)
 
 void ftdx_usbcable_help (urj_log_level_t ll, const char *cablename);
 void ftdx_usbcable_extended_help (urj_log_level_t ll, const char *cablename);
