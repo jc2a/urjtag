@@ -47,6 +47,7 @@ _URJ_CABLE(ep9307)
 #endif
 #ifdef ENABLE_CABLE_FT2232
 _URJ_CABLE(ft2232)
+_URJ_CABLE(ft2232_ft2232hl_v3_6)
 _URJ_CABLE(ft2232_armusbocd)
 _URJ_CABLE(ft2232_armusbocdtiny)
 _URJ_CABLE(ft2232_armusbtiny_h)
