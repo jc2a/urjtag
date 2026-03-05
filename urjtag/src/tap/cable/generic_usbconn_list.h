@@ -45,6 +45,7 @@ _URJ_USB(jlink)
 #endif
 #ifdef ENABLE_CABLE_FT2232
 _URJ_USB_FTDX(ft2232)
+_URJ_USB_FTDX(ft2232hl_v3_6)
 _URJ_USB_FTDX(armusbocd)
 _URJ_USB_FTDX(armusbocd_h)
 _URJ_USB_FTDX(armusbocdtiny)

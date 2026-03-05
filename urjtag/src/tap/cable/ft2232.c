@@ -99,6 +99,16 @@
 #define BITMASK_TCK     (1 << BIT_TCK)
 #define BITMASK_TMS     (1 << BIT_TMS)
 
+/* bit and bitmask definitions for Chinese FT2232HL Board V3.6 */
+#define BIT_FT2232HL_V3_6_nTRST 4 // BDBUS 4 - O
+#define BIT_FT2232HL_V3_6_DBGRQ 5 // BDBUS 5 - O
+#define BIT_FT2232HL_V3_6_nSRST 6 // BDBUS 6 - O
+#define BIT_FT2232HL_V3_6_RTCK  7 // BDBUS 7 - I
+#define BITMASK_FT2232HL_V3_6_nTRST (1 << BIT_FT2232HL_V3_6_nTRST)
+#define BITMASK_FT2232HL_V3_6_DBGRQ (1 << BIT_FT2232HL_V3_6_DBGRQ)
+#define BITMASK_FT2232HL_V3_6_nSRST (1 << BIT_FT2232HL_V3_6_nSRST)
+#define BITMASK_FT2232HL_V3_6_RTCK  (1 << BIT_FT2232HL_V3_6_RTCK)
+
 /* bit and bitmask definitions for Amontec JTAGkey */
 #define BIT_JTAGKEY_nOE         4
 #define BIT_JTAGKEY_TRST_N_OUT  0
@@ -440,6 +450,56 @@ ft2232_generic_init (urj_cable_t *cable)
 
     params->last_tdo_valid = 0;
     params->signals = 0;
+
+    return URJ_STATUS_OK;
+}
+
+static int
+ft2232_ft2232hl_v3_6_init (urj_cable_t *cable)
+{
+    params_t *params = cable->params;
+    urj_tap_cable_cx_cmd_root_t *cmd_root = &params->cmd_root;
+
+    if (urj_tap_usbconn_open (cable->link.usb) != URJ_STATUS_OK)
+        return URJ_STATUS_FAIL;
+
+    /* static low byte value and direction:
+       nTRST dir=OUT value=1
+       nSRST dir=OUT value=1
+       DBGRQ dir=OUT value=0
+       RTCK  dir=IN  value=z */
+    params->low_byte_value =
+        BITMASK_FT2232HL_V3_6_nTRST | BITMASK_FT2232HL_V3_6_nSRST |
+        BITMASK_FT2232HL_V3_6_RTCK;
+    params->low_byte_dir =
+        BITMASK_FT2232HL_V3_6_nTRST | BITMASK_FT2232HL_V3_6_nSRST |
+        BITMASK_FT2232HL_V3_6_DBGRQ;
+
+    /* Set Data Bits Low Byte
+       TCK = 0, TMS = 1, TDI = 0 */
+    urj_tap_cable_cx_cmd_queue (cmd_root, 0);
+    urj_tap_cable_cx_cmd_push (cmd_root, SET_BITS_LOW);
+    urj_tap_cable_cx_cmd_push (cmd_root,
+                               params->low_byte_value | BITMASK_TMS);
+    urj_tap_cable_cx_cmd_push (cmd_root,
+                               params->low_byte_dir | BITMASK_TCK
+                               | BITMASK_TDI | BITMASK_TMS);
+
+    /* Set Data Bits High Byte */
+    params->high_byte_value = 0;
+    params->high_byte_value = 0;
+    params->high_byte_dir = 0;
+    urj_tap_cable_cx_cmd_push (cmd_root, SET_BITS_HIGH);
+    urj_tap_cable_cx_cmd_push (cmd_root, params->high_byte_value);
+    urj_tap_cable_cx_cmd_push (cmd_root, params->high_byte_dir);
+
+    ft2232_set_frequency (cable, FT2232_MAX_TCK_FREQ);
+
+    params->bit_trst = BIT_FT2232HL_V3_6_nTRST;      /* member of LOW byte */
+    params->bit_reset = BIT_FT2232HL_V3_6_nSRST;     /* member of LOW byte */
+
+    params->last_tdo_valid = 0;
+    params->signals = URJ_POD_CS_TRST | URJ_POD_CS_RESET;
 
     return URJ_STATUS_OK;
 }
@@ -1429,6 +1489,31 @@ ft2232_generic_done (urj_cable_t *cable)
     urj_tap_cable_generic_usbconn_done (cable);
 }
 
+static void
+ft2232_ft2232hl_v3_6_done (urj_cable_t *cable)
+{
+    params_t *params = cable->params;
+    urj_tap_cable_cx_cmd_root_t *cmd_root = &params->cmd_root;
+
+    /* Set Data Bits Low Byte
+       set all to input */
+    urj_tap_cable_cx_cmd_queue (cmd_root, 0);
+    urj_tap_cable_cx_cmd_push (cmd_root, SET_BITS_LOW);
+    urj_tap_cable_cx_cmd_push (cmd_root,
+        BITMASK_FT2232HL_V3_6_nTRST | BITMASK_FT2232HL_V3_6_nSRST
+    );
+    urj_tap_cable_cx_cmd_push (cmd_root, 0);
+
+    /* Set Data Bits High Byte
+       set all to input */
+    urj_tap_cable_cx_cmd_push (cmd_root, SET_BITS_HIGH);
+    urj_tap_cable_cx_cmd_push (cmd_root, 0);
+    urj_tap_cable_cx_cmd_push (cmd_root, 0);
+    urj_tap_cable_cx_xfer (cmd_root, &imm_cmd, cable,
+                           URJ_TAP_CABLE_COMPLETELY);
+
+    urj_tap_cable_generic_usbconn_done (cable);
+}
 
 static void
 ft2232_jtagkey_done (urj_cable_t *cable)
@@ -2697,6 +2782,26 @@ const urj_cable_driver_t urj_tap_cable_ft2232_driver = {
     ftdx_usbcable_help
 };
 URJ_DECLARE_FTDX_CABLE(0x0000, 0x0000, "-mpsse", "FT2232", ft2232)
+
+const urj_cable_driver_t urj_tap_cable_ft2232_ft2232hl_v3_6_driver = {
+    "FT2232HL-V3.6",
+    N_("Chinese FT2232HL Board V3.6"),
+    URJ_CABLE_DEVICE_USB,
+    { .usb = ft2232_connect, },
+    urj_tap_cable_generic_disconnect,
+    ft2232_cable_free,
+    ft2232_ft2232hl_v3_6_init,
+    ft2232_ft2232hl_v3_6_done,
+    ft2232_set_frequency,
+    ft2232_clock,
+    ft2232_get_tdo,
+    ft2232_transfer,
+    ft2232_set_signal,
+    urj_tap_cable_generic_get_signal,
+    ft2232_flush,
+    ftdx_usbcable_help
+};
+URJ_DECLARE_FTDX_CABLE_INTF(0x0403, 0x6010, "-mpsse", "FT2232HL-V3.6", ft2232hl_v3_6, 1)
 
 const urj_cable_driver_t urj_tap_cable_ft2232_armusbocd_driver = {
     "ARM-USB-OCD",

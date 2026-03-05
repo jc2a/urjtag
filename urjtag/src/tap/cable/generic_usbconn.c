@@ -51,7 +51,7 @@ urj_tap_cable_generic_usbconn_connect (urj_cable_t *cable,
         NULL,                   /* no specific driver */
         -1,                     /* no VID */
         -1,                     /* no PID */
-        0,                      /* default interface */
+        -1,                      /* default interface */
     };
 
     urj_tap_cable_generic_params_t *cable_params;
@@ -119,9 +119,9 @@ urj_tap_cable_generic_usbconn_connect (urj_cable_t *cable,
                             cable_try.vid = user_specified.vid;
                         if (user_specified.pid >= 0)
                             cable_try.pid = user_specified.pid;
-                        if (user_specified.desc != 0)
+                        if (user_specified.desc != NULL)
                             cable_try.desc = user_specified.desc;
-                        if (user_specified.interface != 0)
+                        if (user_specified.interface >= 0)
                             cable_try.interface = user_specified.interface;
                         if (user_specified.index != 0)
                             cable_try.index = user_specified.index;
@@ -203,12 +203,12 @@ urj_tap_cable_generic_usbconn_help_ex (urj_log_level_t ll, const char *cablename
              _("Usage: cable %s %s %s\n"
                "\n" "%s%s"
                "\n"
-               "Default:   vid=0x%x pid=0x%x driver=%s\n"
+               "Default:   vid=0x%x pid=0x%x driver=%s interface=%d\n"
                "\n"),
              cablename,
              URJ_TAP_CABLE_GENERIC_USBCONN_HELP_SHORT, ex_short,
              URJ_TAP_CABLE_GENERIC_USBCONN_HELP_DESC, ex_desc,
-             conn->vid, conn->pid, conn->driver);
+             conn->vid, conn->pid, conn->driver, conn->interface);
 }
 
 void
