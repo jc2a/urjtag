@@ -562,6 +562,52 @@ xlx_print_status_xc6s (urj_pld_t *pld)
 }
 
 static int
+xlx_print_status_xc7a (urj_pld_t *pld)
+{
+    uint32_t status;
+
+    if (xlx_read_register_xc4v (pld, XILINX_XC7A_REG_STAT, &status)
+                != URJ_STATUS_OK)
+        return URJ_STATUS_FAIL;
+
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("Status register (0x%08x)\n"), status);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_DEC_ERROR     %d\n"),
+        (status & XC7A_STATUS_DEC_ERROR) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_ID_ERROR      %d\n"),
+        (status & XC7A_STATUS_ID_ERROR) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_DONE          %d\n"),
+        (status & XC7A_STATUS_DONE) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_RELEASE_DONE  %d\n"),
+        (status & XC7A_STATUS_RELEASE_DONE) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_INIT_B        %d\n"),
+        (status & XC7A_STATUS_INIT_B) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_MODE_M2       %d\n"),
+        (status & XC7A_STATUS_MODE_M2) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_MODE_M1       %d\n"),
+        (status & XC7A_STATUS_MODE_M1) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_MODE_M0       %d\n"),
+        (status & XC7A_STATUS_MODE_M0) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_GHIGH_B       %d\n"),
+        (status & XC7A_STATUS_GHIGH_B) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_GWE           %d\n"),
+        (status & XC7A_STATUS_GWE) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_GTS_CFG_B     %d\n"),
+        (status & XC7A_STATUS_GTS_CFG_B) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_EOS           %d\n"),
+        (status & XC7A_STATUS_EOS) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_DCI_MATCH     %d\n"),
+        (status & XC7A_STATUS_DCI_MATCH) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_DCM_LOCK      %d\n"),
+        (status & XC7A_STATUS_DCM_LOCK) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_PART_SECURED  %d\n"),
+        (status & XC7A_STATUS_PART_SECURED) ? 1 : 0);
+    urj_log (URJ_LOG_LEVEL_NORMAL, _("\tXC7A_STATUS_CRC_ERROR     %d\n"),
+        (status & XC7A_STATUS_CRC_ERROR) ? 1 : 0);
+
+    return URJ_STATUS_OK;
+}
+
+static int
 xlx_configure (urj_pld_t *pld, FILE *bit_file)
 {
     urj_chain_t *chain = pld->chain;
@@ -750,6 +796,26 @@ xlx_detect_xc6s (urj_pld_t *pld)
     }
 }
 
+static int
+xlx_detect_xc7a (urj_pld_t *pld)
+{
+    urj_part_t *part = pld->part;
+    uint32_t idcode;
+    uint32_t family;
+
+    /* get fpga family from idcode */
+    idcode = urj_tap_register_get_value (part->id);
+    family = (idcode >> 21) & 0x7f;
+
+    switch (family)
+    {
+        case XILINX_FAMILY_XC7A:
+            return URJ_STATUS_OK;
+        default:
+            return URJ_STATUS_FAIL;
+    }
+}
+
 const urj_pld_driver_t urj_pld_xc3s_driver = {
     .name = N_("Xilinx Spartan 3 Family"),
     .detect = xlx_detect_xc3s,
@@ -776,6 +842,17 @@ const urj_pld_driver_t urj_pld_xc4v_driver = {
     .name = N_("Xilinx Virtex 4 Family"),
     .detect = xlx_detect_xc4v,
     .print_status = xlx_print_status_xc4v,
+    .configure = xlx_configure,
+    .reconfigure = xlx_reconfigure,
+    .read_register = xlx_read_register_xc4v,
+    .write_register = xlx_write_register_xc4v,
+    .register_width = 2,
+};
+
+const urj_pld_driver_t urj_pld_xc7a_driver = {
+    .name = N_("Xilinx Artix 7 Family"),
+    .detect = xlx_detect_xc7a,
+    .print_status = xlx_print_status_xc7a,
     .configure = xlx_configure,
     .reconfigure = xlx_reconfigure,
     .read_register = xlx_read_register_xc4v,
