@@ -37,6 +37,7 @@
 #define XILINX_XC3S_REG_STAT 8
 #define XILINX_XC4V_REG_STAT 7
 #define XILINX_XC6S_REG_STAT 8
+#define XILINX_XC7A_REG_STAT 7
 
 #define XILINX_FAMILY_XC2V      0x08
 #define XILINX_FAMILY_XC3S      0x0A
@@ -53,6 +54,7 @@
 #define XILINX_FAMILY_XC5CFXT   0x19
 #define XILINX_FAMILY_XC5CTXT   0x22
 #define XILINX_FAMILY_XC6S      0x20
+#define XILINX_FAMILY_XC7A      0x1B
 
 #define XC3S_STATUS_SYNC_TIMEOUT    URJ_BIT(15)
 #define XC3S_STATUS_SEU_ERR         URJ_BIT(14)
@@ -105,9 +107,27 @@
 #define XC6S_STATUS_ID_ERROR        URJ_BIT(1)
 #define XC6S_STATUS_CRC_ERROR       URJ_BIT(0)
 
+#define XC7A_STATUS_DEC_ERROR       URJ_BIT(16)
+#define XC7A_STATUS_ID_ERROR        URJ_BIT(15)
+#define XC7A_STATUS_DONE            URJ_BIT(14)
+#define XC7A_STATUS_RELEASE_DONE    URJ_BIT(13)
+#define XC7A_STATUS_INIT_B          URJ_BIT(12)
+#define XC7A_STATUS_MODE_M2         URJ_BIT(10)
+#define XC7A_STATUS_MODE_M1         URJ_BIT(9)
+#define XC7A_STATUS_MODE_M0         URJ_BIT(8)
+#define XC7A_STATUS_GHIGH_B         URJ_BIT(7)
+#define XC7A_STATUS_GWE             URJ_BIT(6)
+#define XC7A_STATUS_GTS_CFG_B       URJ_BIT(5)
+#define XC7A_STATUS_EOS             URJ_BIT(5)
+#define XC7A_STATUS_DCI_MATCH       URJ_BIT(3)
+#define XC7A_STATUS_DCM_LOCK        URJ_BIT(2)
+#define XC7A_STATUS_PART_SECURED    URJ_BIT(1)
+#define XC7A_STATUS_CRC_ERROR       URJ_BIT(0)
+
 extern const urj_pld_driver_t urj_pld_xc3s_driver;
 extern const urj_pld_driver_t urj_pld_xc6s_driver;
 extern const urj_pld_driver_t urj_pld_xc4v_driver;
+extern const urj_pld_driver_t urj_pld_xc7a_driver;
 
 typedef struct {
     char *design;
